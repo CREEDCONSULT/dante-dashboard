@@ -183,6 +183,20 @@ a{color:var(--accent);text-decoration:none}
 .act-btn.complete:hover:not(:disabled){border-color:var(--clr-health);color:var(--clr-health)}
 .act-btn.skip:hover:not(:disabled){border-color:var(--text-muted);color:var(--text-dim)}
 .act-btn.carry:hover:not(:disabled){border-color:#FFBB28;color:#FFBB28}
+.act-btn.reset{color:#e04040}
+.act-btn.reset:hover:not(:disabled){border-color:#e04040;color:#ff6060;background:#1a1010}
+.act-btn.notes{color:var(--text-muted)}
+.act-btn.notes:hover:not(:disabled){border-color:var(--text-dim);color:var(--text-dim)}
+/* ── Elapsed timer ── */
+.elapsed{margin-left:6px;font-size:10px;color:var(--clr-trading);font-family:monospace;animation:pulse 2s infinite;vertical-align:middle}
+/* ── Notes textarea ── */
+.task-notes{margin-top:4px}
+.task-notes textarea{
+  width:100%;background:var(--surface2);border:1px solid var(--border);
+  border-radius:4px;padding:6px 8px;font-size:10px;color:var(--text);
+  font-family:inherit;resize:none;outline:none;
+}
+.task-notes textarea:focus{border-color:var(--clr-trading)}
 
 /* ═══ DOD PANEL ═══ */
 .dod-toggle{
@@ -225,6 +239,26 @@ a{color:var(--accent);text-decoration:none}
 /* ═══ RESPONSIVE ═══ */
 @media(max-width:1200px){.columns{grid-template-columns:repeat(4,1fr)}}
 @media(max-width:768px){.columns{grid-template-columns:1fr};.venture-strip{flex-wrap:nowrap;overflow-x:auto}}
+
+/* ═══ CARRYOVER QUEUE ═══ */
+.carry-section{margin:0 24px 24px;display:none}
+.carry-section.visible{display:block}
+.carry-header{font-size:12px;color:var(--text-dim);margin-bottom:8px;font-weight:600}
+.carry-list{display:flex;flex-wrap:wrap;gap:8px}
+.carry-item{
+  display:flex;align-items:center;gap:8px;
+  background:var(--surface);border:1px solid var(--border);border-left:2px solid #FFBB28;
+  border-radius:var(--radius-sm);padding:8px 12px;font-size:11px;
+}
+.carry-title{color:var(--text);max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.carry-cat{font-size:9px;padding:1px 6px;border-radius:3px;font-weight:600}
+.carry-assign{
+  background:var(--surface2);border:1px solid var(--border);border-radius:4px;
+  color:var(--text-dim);font-size:10px;padding:2px 8px;cursor:pointer;
+}
+.carry-assign:hover{background:#2a2a40;color:#fff}
+.carry-remove{background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:14px;padding:0 4px}
+.carry-remove:hover{color:#e04040}
 </style>
 </head>
 <body>
@@ -259,6 +293,12 @@ a{color:var(--accent);text-decoration:none}
 <!-- ═══ 7-DAY COLUMNS ═══ -->
 <div class="columns" id="columns"></div>
 
+<!-- ═══ CARRYOVER QUEUE ═══ -->
+<div class="carry-section" id="carrySection">
+  <div class="carry-header">📋 Carryover Queue</div>
+  <div class="carry-list" id="carryList"></div>
+</div>
+
 <!-- ═══ DOD TOGGLE ═══ -->
 <div class="dod-toggle" onclick="toggleDod()">D E F I N I T I O N S</div>
 <div class="dod-overlay" id="dodOverlay" onclick="toggleDod()"></div>
@@ -285,7 +325,9 @@ let state = {
   view: 'week',
   selectedDay: null,
   filterVenture: null,
-  dodState: {}
+  dodState: {},
+  carryoverQueue: [],
+  timers: {}  // taskId → startedAt timestamp
 };
 
 /* ═══ CATEGORY CONFIG ═══ */
@@ -327,6 +369,7 @@ function render() {
   renderVentures();
   renderDayNav();
   renderColumns();
+  renderCarryover();
   renderDod();
   updateClock();
 }
@@ -483,28 +526,45 @@ function nowBar() {
 function taskCard(t) {
   const status = t.status || 'not_started';
   const dur = calcDuration(t.startTime, t.endTime);
+  const durStr = dur >= 60 ? Math.floor(dur/60) + 'h' + (dur%60 ? ' ' + (dur%60) + 'm' : '') : dur + 'm';
   const btnDisabled = t._syncing ? 'disabled' : '';
   const cat = t.category || 'admin';
+  const isCompleted = status === 'completed';
+  const isSkipped = status === 'skipped';
+  const isCarried = status === 'carried_over';
+  const isStarted = status === 'started' || status === 'in_progress';
+
+  // Elapsed timer
+  const elapsed = (isStarted && t.startedAt) ? `<span class="elapsed" data-task="${t.id}">…</span>` : '';
 
   let actions = '';
-  if (status === 'not_started' || status === 'backlog') {
-    actions = `<button class="act-btn start" ${btnDisabled} onclick="doAction('${t.id}','start')">▶</button>`;
-  } else if (status === 'started' || status === 'in_progress') {
-    actions = `<button class="act-btn complete" ${btnDisabled} onclick="doAction('${t.id}','complete')">✅</button>`;
+  if (!isStarted && !isCompleted) {
+    actions += `<button class="act-btn start" ${btnDisabled} onclick="doAction('${t.id}','start')">▶ Start</button>`;
   }
-  if (status !== 'completed') {
-    actions += `<button class="act-btn skip" ${btnDisabled} onclick="doAction('${t.id}','skip')">⏭</button>`;
+  if (!isCompleted) {
+    actions += `<button class="act-btn complete" ${btnDisabled} onclick="doAction('${t.id}','complete')">✓ Done</button>`;
   }
+  if (!isSkipped && !isCompleted && !isCarried) {
+    actions += `<button class="act-btn skip" ${btnDisabled} onclick="doAction('${t.id}','skip')">⏭ Skip</button>`;
+  }
+  if (!isCarried && !isCompleted) {
+    actions += `<button class="act-btn carry" ${btnDisabled} onclick="doAction('${t.id}','carry')">→ Carry</button>`;
+  }
+  if (isCompleted || isSkipped || isCarried) {
+    actions += `<button class="act-btn reset" ${btnDisabled} onclick="doAction('${t.id}','reset')">↺ Reset</button>`;
+  }
+  actions += `<button class="act-btn notes" onclick="toggleNotes('${t.id}')">✎ Notes</button>`;
 
   return `
     <div class="task-card ${status}" id="task-${t.id}">
-      <div class="task-time">${t.startTime} – ${t.endTime}<span class="task-dur">· ${dur}m</span></div>
+      <div class="task-time">${t.startTime} – ${t.endTime}<span class="task-dur">· ${durStr}</span></div>
       <div class="task-body">
         <span class="task-cat" style="background:${catBg(cat)};color:${catColor(cat)}">${catLabel(cat)}</span>
-        <span class="task-title">${esc(t.title)}</span>
+        <span class="task-title">${esc(t.title)}${elapsed}</span>
       </div>
       ${t.details ? `<div class="task-details">${esc(t.details)}</div>` : ''}
       ${NON_ACTIONABLE.includes(cat) ? '' : `<div class="task-actions">${actions}</div>`}
+      ${t._showNotes ? `<div class="task-notes"><textarea id="notes-${t.id}" onblur="saveNotes('${t.id}')" placeholder="Add notes...">${esc(t.notes||'')}</textarea></div>` : ''}
     </div>`;
 }
 
@@ -547,39 +607,61 @@ function doAction(issueId, action) {
   const task = state.tasks.find(t => t.id === issueId);
   if (!task) return;
 
-  // Optimistic update
-  const newStatus = action === 'start' ? 'started' : action === 'complete' ? 'completed' : action === 'skip' ? 'skipped' : task.status;
-  task.status = newStatus;
+  task._prevStatus = task.status;
+
+  if (action === 'start') {
+    task.status = 'started';
+    task.startedAt = new Date().toISOString();
+    toast('▶ Started — timer running');
+  } else if (action === 'complete') {
+    task.status = 'completed';
+    task.completedAt = new Date().toISOString();
+    toast('✅ Completed!');
+  } else if (action === 'skip') {
+    task.status = 'skipped';
+    toast('⏭ Skipped');
+  } else if (action === 'carry') {
+    task.status = 'carried_over';
+    state.carryoverQueue.push({...task});
+    toast('→ Moved to Carryover Queue');
+  } else if (action === 'reset') {
+    task.status = 'not_started';
+    task.startedAt = null;
+    task.completedAt = null;
+    // Remove from carryover queue
+    state.carryoverQueue = state.carryoverQueue.filter(t => t.id !== issueId);
+    toast('↺ Reset to Not Started');
+  }
+
   task._syncing = true;
   saveLocal();
   render();
-  toast(`${action === 'start' ? '▶ Started' : action === 'complete' ? '✅ Completed' : '⏭ Skipped'}: ${task.title.substring(0, 40)}`);
 
-  // Background sync
+  // Background sync to server
   fetch(`${API}/action`, {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({issue_id: issueId, action: action})
+    body: JSON.stringify({issue_id: issueId, action: action === 'carry' ? 'backlog' : action === 'reset' ? 'backlog' : action})
   }).then(r => r.json()).then(d => {
     if (d.success) {
       task._syncing = false;
       saveLocal();
     } else {
-      task.status = task._prevStatus || 'not_started';
-      delete task._syncing;
-      saveLocal();
-      render();
+      rollback(task);
       toast('⚠ Sync failed, reverted');
     }
   }).catch(() => {
-    task.status = task._prevStatus || 'not_started';
-    delete task._syncing;
-    saveLocal();
-    render();
+    rollback(task);
     toast('⚠ Server unreachable');
   });
+}
 
-  task._prevStatus = task.status;
+function rollback(task) {
+  task.status = task._prevStatus || 'not_started';
+  if (task._prevStatus === 'carried_over') state.carryoverQueue = state.carryoverQueue.filter(t => t.id !== task.id);
+  delete task._syncing;
+  saveLocal();
+  render();
 }
 
 /* ═══ VIEW ═══ */
@@ -608,6 +690,103 @@ function toggleDod() {
   const isOpen = panel.classList.contains('open');
   panel.classList.toggle('open', !isOpen);
   overlay.classList.toggle('show', !isOpen);
+}
+
+/* ═══ CARRYOVER QUEUE RENDER ═══ */
+function renderCarryover() {
+  const section = document.getElementById('carrySection');
+  const list = document.getElementById('carryList');
+  if (state.carryoverQueue.length === 0) {
+    section.classList.remove('visible');
+    return;
+  }
+  section.classList.add('visible');
+  const days = getDays();
+  let html = '';
+  for (const ct of state.carryoverQueue) {
+    const dayOptions = days.map(d => {
+      const dd = new Date(d+'T12:00:00');
+      return `<option value="${d}">${dd.toLocaleDateString('en',{weekday:'short'})} ${dd.getDate()}</option>`;
+    }).join('');
+    html += `
+      <div class="carry-item">
+        <span class="carry-cat" style="background:${catBg(ct.category)};color:${catColor(ct.category)}">${catLabel(ct.category)}</span>
+        <span class="carry-title">${esc(ct.title)}</span>
+        <select class="carry-assign" onchange="assignCarryover('${ct.id}', this.value)">
+          <option value="">Assign to…</option>
+          ${dayOptions}
+        </select>
+        <button class="carry-remove" onclick="removeCarryover('${ct.id}')">×</button>
+      </div>`;
+  }
+  list.innerHTML = html;
+}
+
+function assignCarryover(taskId, targetDay) {
+  if (!targetDay) return;
+  const task = state.tasks.find(t => t.id === taskId);
+  if (task) {
+    task.day = targetDay;
+    task.status = 'not_started';
+    task.startedAt = null;
+    task.completedAt = null;
+  }
+  state.carryoverQueue = state.carryoverQueue.filter(t => t.id !== taskId);
+  saveLocal();
+  render();
+  toast('Assigned to ' + targetDay);
+}
+
+function removeCarryover(taskId) {
+  state.carryoverQueue = state.carryoverQueue.filter(t => t.id !== taskId);
+  const task = state.tasks.find(t => t.id === taskId);
+  if (task) {
+    task.status = 'not_started';
+    task.startedAt = null;
+    task.completedAt = null;
+  }
+  saveLocal();
+  render();
+  toast('Removed from carryover');
+}
+
+/* ═══ NOTES ═══ */
+function toggleNotes(taskId) {
+  const task = state.tasks.find(t => t.id === taskId);
+  if (!task) return;
+  task._showNotes = !task._showNotes;
+  render();
+  if (task._showNotes) {
+    setTimeout(() => {
+      const ta = document.getElementById('notes-'+taskId);
+      if (ta) { ta.focus(); ta.selectionStart = ta.value.length; }
+    }, 50);
+  }
+}
+
+function saveNotes(taskId) {
+  const ta = document.getElementById('notes-'+taskId);
+  if (!ta) return;
+  const task = state.tasks.find(t => t.id === taskId);
+  if (task && ta.value !== (task.notes || '')) {
+    task.notes = ta.value;
+    saveLocal();
+  }
+}
+
+/* ═══ ELAPSED TIMER ═══ */
+function updateTimers() {
+  const now = Date.now();
+  document.querySelectorAll('.elapsed').forEach(el => {
+    const taskId = el.dataset.task;
+    const task = state.tasks.find(t => t.id === taskId);
+    if (task && task.startedAt) {
+      const diff = Math.floor((now - new Date(task.startedAt).getTime()) / 1000);
+      const m = Math.floor(diff / 60);
+      const s = diff % 60;
+      el.textContent = m + ':' + String(s).padStart(2, '0');
+    }
+  });
 }
 
 /* ═══ HELPERS ═══ */
@@ -652,18 +831,34 @@ function updateClock() {
 
 /* ═══ LOCAL STORAGE ═══ */
 function saveLocal() {
-  try { localStorage.setItem(LS_KEY, JSON.stringify({tasks:state.tasks,dodState:state.dodState,streak:state.streak})); } catch(e) {}
+  try {
+    localStorage.setItem(LS_KEY, JSON.stringify({
+      tasks: state.tasks.map(t => ({
+        id: t.id, status: t.status, startedAt: t.startedAt,
+        completedAt: t.completedAt, notes: t.notes
+      })),
+      carryoverQueue: state.carryoverQueue.map(t => t.id),
+      dodState: state.dodState, streak: state.streak
+    }));
+  } catch(e) {}
 }
 function loadLocal() {
   try {
     const d = JSON.parse(localStorage.getItem(LS_KEY));
     if (d && d.tasks) {
-      // Merge local status into tasks from server
       const localMap = {};
-      for (const t of d.tasks) localMap[t.id] = t.status;
+      for (const t of d.tasks) localMap[t.id] = t;
       for (const t of state.tasks) {
-        if (localMap[t.id] && localMap[t.id] !== 'synced') t.status = localMap[t.id];
+        if (localMap[t.id]) {
+          t.status = localMap[t.id].status || t.status;
+          t.startedAt = localMap[t.id].startedAt || null;
+          t.completedAt = localMap[t.id].completedAt || null;
+          t.notes = localMap[t.id].notes || '';
+        }
       }
+    }
+    if (d && d.carryoverQueue) {
+      state.carryoverQueue = state.tasks.filter(t => d.carryoverQueue.includes(t.id) && t.status === 'carried_over');
     }
     if (d && d.streak) state.streak = d.streak;
     if (d && d.dodState) state.dodState = d.dodState;
@@ -689,9 +884,10 @@ async function loadData() {
 
 /* ═══ INIT ═══ */
 loadData();
-setInterval(loadData, 30000);  // Poll every 30s
-setInterval(updateClock, 30000);
-setInterval(render, 60000);    // Full re-render every 60s for NOW indicator
+setInterval(loadData, 30000);     // Poll every 30s
+setInterval(updateClock, 30000);   // Update clock
+setInterval(render, 60000);       // Full re-render every 60s for NOW indicator
+setInterval(updateTimers, 1000);   // Update elapsed timers every second
 </script>
 </body>
 </html>

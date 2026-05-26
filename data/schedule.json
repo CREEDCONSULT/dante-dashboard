@@ -1,0 +1,1194 @@
+[
+  {
+    "day": "2026-05-25",
+    "startTime": "06:00",
+    "endTime": "06:15",
+    "title": "Wake & Hydration",
+    "details": "Wake, water, light mobility, no phone scrolling.",
+    "category": "health"
+  },
+  {
+    "day": "2026-05-25",
+    "startTime": "06:15",
+    "endTime": "06:35",
+    "title": "Prayer / Meditation",
+    "details": "Prayer, stillness, and intention-setting for the week.",
+    "category": "spiritual"
+  },
+  {
+    "day": "2026-05-25",
+    "startTime": "06:35",
+    "endTime": "06:55",
+    "title": "Run 1km",
+    "details": "Complete 1 km easy run. Keep it slow and sustainable.",
+    "category": "health"
+  },
+  {
+    "day": "2026-05-25",
+    "startTime": "06:55",
+    "endTime": "07:30",
+    "title": "Reset",
+    "details": "Shower, dress, review top three priorities.",
+    "category": "free"
+  },
+  {
+    "day": "2026-05-25",
+    "startTime": "07:30",
+    "endTime": "08:15",
+    "title": "Trading Pre-Market Scan",
+    "details": "Review crypto overnight movement, forex and commodities watchlist, major levels, and market sentiment.",
+    "category": "trading"
+  },
+  {
+    "day": "2026-05-25",
+    "startTime": "08:15",
+    "endTime": "09:15",
+    "title": "Deep Work: Volatile Pipeline",
+    "details": "Define signal pipeline infrastructure: data sources, signal logic, alert flow, database/storage needs, execution handoff.",
+    "category": "volatile"
+  },
+  {
+    "day": "2026-05-25",
+    "startTime": "09:15",
+    "endTime": "09:30",
+    "title": "Break",
+    "details": "Walk, stretch, refill water.",
+    "category": "meals"
+  },
+  {
+    "day": "2026-05-25",
+    "startTime": "09:30",
+    "endTime": "10:00",
+    "title": "Market Open Review",
+    "details": "Watch US open behavior, confirm valid setups, write quick notes.",
+    "category": "trading"
+  },
+  {
+    "day": "2026-05-25",
+    "startTime": "10:00",
+    "endTime": "11:15",
+    "title": "Gym",
+    "details": "Strength session. Keep intensity moderate because of fasting.",
+    "category": "health"
+  },
+  {
+    "day": "2026-05-25",
+    "startTime": "11:15",
+    "endTime": "11:45",
+    "title": "Recovery & Transition",
+    "details": "Shower, commute home if needed, hydration.",
+    "category": "health"
+  },
+  {
+    "day": "2026-05-25",
+    "startTime": "11:45",
+    "endTime": "12:45",
+    "title": "Deep Work: Signal Pipeline Build",
+    "details": "Create initial project structure for Volatile. Begin first ingestion or data-normalization component.",
+    "category": "volatile"
+  },
+  {
+    "day": "2026-05-25",
+    "startTime": "12:45",
+    "endTime": "13:15",
+    "title": "Break / Admin Reset",
+    "details": "Low-stimulation break, clear desk, quick message triage only.",
+    "category": "meals"
+  },
+  {
+    "day": "2026-05-25",
+    "startTime": "13:15",
+    "endTime": "14:15",
+    "title": "Creed Consult Operations",
+    "details": "Review client obligations, identify urgent deliverables, create short task queue for the week.",
+    "category": "creed"
+  },
+  {
+    "day": "2026-05-25",
+    "startTime": "14:15",
+    "endTime": "15:00",
+    "title": "Light Trading Review",
+    "details": "Check open markets, journal trade decisions, avoid forcing trades before first meal.",
+    "category": "trading"
+  },
+  {
+    "day": "2026-05-25",
+    "startTime": "15:00",
+    "endTime": "15:45",
+    "title": "First Meal",
+    "details": "Eat a balanced meal and step away from work.",
+    "category": "meals"
+  },
+  {
+    "day": "2026-05-25",
+    "startTime": "15:45",
+    "endTime": "16:45",
+    "title": "Deep Work: Trading Bot",
+    "details": "Inspect multi-account bridge issue, reproduce the problem, write down the failure point.",
+    "category": "tradingbot"
+  },
+  {
+    "day": "2026-05-25",
+    "startTime": "16:45",
+    "endTime": "17:15",
+    "title": "Break",
+    "details": "Walk outside or do a reset chore.",
+    "category": "meals"
+  },
+  {
+    "day": "2026-05-25",
+    "startTime": "17:15",
+    "endTime": "18:15",
+    "title": "AI Avatar System",
+    "details": "Research or select the avatar workflow stack. Define what the first test should produce.",
+    "category": "avatar"
+  },
+  {
+    "day": "2026-05-25",
+    "startTime": "18:15",
+    "endTime": "19:00",
+    "title": "Dinner / Decompression",
+    "details": "Eat, decompress, avoid heavy work.",
+    "category": "meals"
+  },
+  {
+    "day": "2026-05-25",
+    "startTime": "19:00",
+    "endTime": "20:00",
+    "title": "Digital Product Development",
+    "details": "Draft first outline for Volatile course or EA product: target customer, promise, modules, first deliverable.",
+    "category": "product"
+  },
+  {
+    "day": "2026-05-25",
+    "startTime": "20:00",
+    "endTime": "21:00",
+    "title": "Light Review",
+    "details": "Review Monday outputs and prepare Tuesday's top three tasks.",
+    "category": "planning"
+  },
+  {
+    "day": "2026-05-25",
+    "startTime": "21:00",
+    "endTime": "22:00",
+    "title": "Personal Time",
+    "details": "Low-pressure leisure, reading, or social time.",
+    "category": "free"
+  },
+  {
+    "day": "2026-05-25",
+    "startTime": "22:00",
+    "endTime": "23:00",
+    "title": "Evening Wind-Down",
+    "details": "Screens down gradually, hygiene, prayer/reflection, lights out by 11:00 PM.",
+    "category": "free"
+  },
+  {
+    "day": "2026-05-26",
+    "startTime": "06:00",
+    "endTime": "06:15",
+    "title": "Wake & Hydration",
+    "details": "Wake, water, light stretch.",
+    "category": "health"
+  },
+  {
+    "day": "2026-05-26",
+    "startTime": "06:15",
+    "endTime": "06:35",
+    "title": "Prayer / Meditation",
+    "details": "Ground the day and set a narrow execution target.",
+    "category": "spiritual"
+  },
+  {
+    "day": "2026-05-26",
+    "startTime": "06:35",
+    "endTime": "06:55",
+    "title": "Run 1km",
+    "details": "Complete 1 km easy run (treadmill or rain-safe route).",
+    "category": "health"
+  },
+  {
+    "day": "2026-05-26",
+    "startTime": "06:55",
+    "endTime": "07:30",
+    "title": "Reset",
+    "details": "Shower and prepare workspace.",
+    "category": "free"
+  },
+  {
+    "day": "2026-05-26",
+    "startTime": "07:30",
+    "endTime": "08:20",
+    "title": "Trading Pre-Market Scan",
+    "details": "Review crypto, forex, commodities, and US pre-market levels. Prepare written trade plan.",
+    "category": "trading"
+  },
+  {
+    "day": "2026-05-26",
+    "startTime": "08:20",
+    "endTime": "09:20",
+    "title": "Deep Work: Trading Bot",
+    "details": "Continue diagnosing multi-account bridge. Focus on one account-routing or execution-sync issue.",
+    "category": "tradingbot"
+  },
+  {
+    "day": "2026-05-26",
+    "startTime": "09:20",
+    "endTime": "09:30",
+    "title": "Break",
+    "details": "Stretch and reset attention.",
+    "category": "meals"
+  },
+  {
+    "day": "2026-05-26",
+    "startTime": "09:30",
+    "endTime": "10:00",
+    "title": "Market Open Review",
+    "details": "Monitor open, confirm valid setups, avoid impulsive trades.",
+    "category": "trading"
+  },
+  {
+    "day": "2026-05-26",
+    "startTime": "10:00",
+    "endTime": "11:15",
+    "title": "Gym",
+    "details": "Strength or conditioning session. Keep intensity controlled while fasting.",
+    "category": "health"
+  },
+  {
+    "day": "2026-05-26",
+    "startTime": "11:15",
+    "endTime": "11:45",
+    "title": "Recovery & Transition",
+    "details": "Shower, hydration, return home.",
+    "category": "health"
+  },
+  {
+    "day": "2026-05-26",
+    "startTime": "11:45",
+    "endTime": "12:45",
+    "title": "Deep Work: Volatile Pipeline",
+    "details": "Implement or document next infrastructure piece: source connector, signal schema, or alert format.",
+    "category": "volatile"
+  },
+  {
+    "day": "2026-05-26",
+    "startTime": "12:45",
+    "endTime": "13:15",
+    "title": "Break",
+    "details": "Step away from screens.",
+    "category": "meals"
+  },
+  {
+    "day": "2026-05-26",
+    "startTime": "13:15",
+    "endTime": "14:15",
+    "title": "Creed Consult Client Work",
+    "details": "Complete one concrete client deliverable, proposal item, or operations task.",
+    "category": "creed"
+  },
+  {
+    "day": "2026-05-26",
+    "startTime": "14:15",
+    "endTime": "15:00",
+    "title": "Market & Journal Check",
+    "details": "Review active positions, write trade journal notes, close charts if no setup exists.",
+    "category": "trading"
+  },
+  {
+    "day": "2026-05-26",
+    "startTime": "15:00",
+    "endTime": "15:45",
+    "title": "First Meal",
+    "details": "Eat and recover.",
+    "category": "meals"
+  },
+  {
+    "day": "2026-05-26",
+    "startTime": "15:45",
+    "endTime": "16:45",
+    "title": "AI Avatar System Test",
+    "details": "Run a small avatar workflow test: script, voice, face/video, or editing pipeline. Capture what worked and failed.",
+    "category": "avatar"
+  },
+  {
+    "day": "2026-05-26",
+    "startTime": "16:45",
+    "endTime": "17:15",
+    "title": "Break",
+    "details": "Short walk or household reset.",
+    "category": "meals"
+  },
+  {
+    "day": "2026-05-26",
+    "startTime": "17:15",
+    "endTime": "18:15",
+    "title": "Digital Product Development",
+    "details": "Convert Monday's product outline into a simple module map or offer page draft.",
+    "category": "product"
+  },
+  {
+    "day": "2026-05-26",
+    "startTime": "18:15",
+    "endTime": "19:00",
+    "title": "Dinner",
+    "details": "Eat and decompress.",
+    "category": "meals"
+  },
+  {
+    "day": "2026-05-26",
+    "startTime": "19:00",
+    "endTime": "20:00",
+    "title": "Admin & Networking Prep",
+    "details": "Prepare for Wednesday events: update LinkedIn intro, define 3 people to meet, prepare concise Volatile explanation.",
+    "category": "admin"
+  },
+  {
+    "day": "2026-05-26",
+    "startTime": "20:00",
+    "endTime": "21:00",
+    "title": "Light Review",
+    "details": "Review work artifacts, push or save changes, write Wednesday plan.",
+    "category": "planning"
+  },
+  {
+    "day": "2026-05-26",
+    "startTime": "21:00",
+    "endTime": "22:00",
+    "title": "Personal Time",
+    "details": "Low-stimulation leisure.",
+    "category": "free"
+  },
+  {
+    "day": "2026-05-26",
+    "startTime": "22:00",
+    "endTime": "23:00",
+    "title": "Evening Wind-Down",
+    "details": "Screens down, hygiene, reflection, sleep by 11:00 PM.",
+    "category": "free"
+  },
+  {
+    "day": "2026-05-27",
+    "startTime": "06:00",
+    "endTime": "06:15",
+    "title": "Wake & Hydration",
+    "details": "Wake, water, light mobility.",
+    "category": "health"
+  },
+  {
+    "day": "2026-05-27",
+    "startTime": "06:15",
+    "endTime": "06:35",
+    "title": "Prayer / Meditation",
+    "details": "Set networking intention. Define what a successful event day looks like.",
+    "category": "spiritual"
+  },
+  {
+    "day": "2026-05-27",
+    "startTime": "06:35",
+    "endTime": "06:55",
+    "title": "Run 1km",
+    "details": "Complete 1 km easy run.",
+    "category": "health"
+  },
+  {
+    "day": "2026-05-27",
+    "startTime": "06:55",
+    "endTime": "07:30",
+    "title": "Reset",
+    "details": "Shower, dress, light planning.",
+    "category": "free"
+  },
+  {
+    "day": "2026-05-27",
+    "startTime": "07:30",
+    "endTime": "08:20",
+    "title": "Trading Pre-Market Scan",
+    "details": "Review watchlists and define levels. Keep concise \u2014 event day.",
+    "category": "trading"
+  },
+  {
+    "day": "2026-05-27",
+    "startTime": "08:20",
+    "endTime": "09:20",
+    "title": "Deep Work: Volatile",
+    "details": "One bounded task: schema cleanup, README, signal pipeline diagram, or one connector function.",
+    "category": "volatile"
+  },
+  {
+    "day": "2026-05-27",
+    "startTime": "09:20",
+    "endTime": "09:30",
+    "title": "Break",
+    "details": "Reset.",
+    "category": "meals"
+  },
+  {
+    "day": "2026-05-27",
+    "startTime": "09:30",
+    "endTime": "10:00",
+    "title": "Market Open Review",
+    "details": "Observe open and journal any setup. Avoid overtrading before busy afternoon.",
+    "category": "trading"
+  },
+  {
+    "day": "2026-05-27",
+    "startTime": "10:00",
+    "endTime": "11:00",
+    "title": "Gym (Short)",
+    "details": "Shorter gym session. Prioritize consistency over intensity.",
+    "category": "health"
+  },
+  {
+    "day": "2026-05-27",
+    "startTime": "11:00",
+    "endTime": "11:30",
+    "title": "Recovery & Transition",
+    "details": "Shower and prepare for events.",
+    "category": "health"
+  },
+  {
+    "day": "2026-05-27",
+    "startTime": "11:30",
+    "endTime": "12:15",
+    "title": "Event Prep",
+    "details": "Review event details, prepare personal intro, pack essentials, note 3 conversation goals.",
+    "category": "admin"
+  },
+  {
+    "day": "2026-05-27",
+    "startTime": "12:15",
+    "endTime": "12:45",
+    "title": "Travel Buffer",
+    "details": "Travel to first event location or nearby area.",
+    "category": "free"
+  },
+  {
+    "day": "2026-05-27",
+    "startTime": "12:45",
+    "endTime": "13:00",
+    "title": "Arrival Buffer",
+    "details": "Arrive early, check in, settle.",
+    "category": "free"
+  },
+  {
+    "day": "2026-05-27",
+    "startTime": "13:00",
+    "endTime": "14:30",
+    "title": "Event: Design in the Age of AI",
+    "details": "Attend session (Luma). Listen for product, design, and AI workflow insights relevant to Volatile and avatar system.",
+    "category": "networking"
+  },
+  {
+    "day": "2026-05-27",
+    "startTime": "14:30",
+    "endTime": "15:00",
+    "title": "Travel / Transition",
+    "details": "Move to DMZ x Shake Shack at 10 Dundas St E, 6th floor. No meal yet if maintaining fast until 3:00 PM.",
+    "category": "free"
+  },
+  {
+    "day": "2026-05-27",
+    "startTime": "15:00",
+    "endTime": "17:00",
+    "title": "Event: DMZ x Shake Shack Open House",
+    "details": "Attend open house. Network with founders, builders, and operators. Eat after 3:00 PM if food available.",
+    "category": "networking"
+  },
+  {
+    "day": "2026-05-27",
+    "startTime": "17:00",
+    "endTime": "17:45",
+    "title": "Travel Home / Decompression",
+    "details": "Travel back and mentally decompress.",
+    "category": "free"
+  },
+  {
+    "day": "2026-05-27",
+    "startTime": "17:45",
+    "endTime": "18:30",
+    "title": "Meal",
+    "details": "Eat a proper meal if event food was insufficient.",
+    "category": "meals"
+  },
+  {
+    "day": "2026-05-27",
+    "startTime": "18:30",
+    "endTime": "19:15",
+    "title": "Follow-Up Capture",
+    "details": "Write names, companies, ideas, and follow-up actions while memory is fresh.",
+    "category": "networking"
+  },
+  {
+    "day": "2026-05-27",
+    "startTime": "19:15",
+    "endTime": "20:15",
+    "title": "Light Work: AI Content",
+    "details": "Turn one event insight into a short content idea or avatar script.",
+    "category": "avatar"
+  },
+  {
+    "day": "2026-05-27",
+    "startTime": "20:15",
+    "endTime": "21:00",
+    "title": "Light Review",
+    "details": "Check markets briefly, no heavy trading unless already planned.",
+    "category": "planning"
+  },
+  {
+    "day": "2026-05-27",
+    "startTime": "21:00",
+    "endTime": "22:00",
+    "title": "Recovery Time",
+    "details": "Low-pressure evening.",
+    "category": "free"
+  },
+  {
+    "day": "2026-05-27",
+    "startTime": "22:00",
+    "endTime": "23:00",
+    "title": "Evening Wind-Down",
+    "details": "Screens down, hygiene, reflection, sleep by 11:00 PM.",
+    "category": "free"
+  },
+  {
+    "day": "2026-05-28",
+    "startTime": "06:00",
+    "endTime": "06:15",
+    "title": "Wake & Hydration",
+    "details": "Wake, water, light movement.",
+    "category": "health"
+  },
+  {
+    "day": "2026-05-28",
+    "startTime": "06:15",
+    "endTime": "06:35",
+    "title": "Prayer / Meditation",
+    "details": "Set intention for focused work and high-quality networking.",
+    "category": "spiritual"
+  },
+  {
+    "day": "2026-05-28",
+    "startTime": "06:35",
+    "endTime": "06:55",
+    "title": "Run 1km",
+    "details": "Complete 1 km easy run.",
+    "category": "health"
+  },
+  {
+    "day": "2026-05-28",
+    "startTime": "06:55",
+    "endTime": "07:30",
+    "title": "Reset",
+    "details": "Shower, prepare workspace.",
+    "category": "free"
+  },
+  {
+    "day": "2026-05-28",
+    "startTime": "07:30",
+    "endTime": "08:20",
+    "title": "Trading Pre-Market Scan",
+    "details": "Review markets and prepare trade plan.",
+    "category": "trading"
+  },
+  {
+    "day": "2026-05-28",
+    "startTime": "08:20",
+    "endTime": "09:20",
+    "title": "Deep Work: Volatile Pipeline",
+    "details": "Build or test one signal pipeline component. Keep target narrow and shippable.",
+    "category": "volatile"
+  },
+  {
+    "day": "2026-05-28",
+    "startTime": "09:20",
+    "endTime": "09:30",
+    "title": "Break",
+    "details": "Hydration and stretch.",
+    "category": "meals"
+  },
+  {
+    "day": "2026-05-28",
+    "startTime": "09:30",
+    "endTime": "10:00",
+    "title": "Market Open Review",
+    "details": "Observe market open and record decisions.",
+    "category": "trading"
+  },
+  {
+    "day": "2026-05-28",
+    "startTime": "10:00",
+    "endTime": "11:15",
+    "title": "Gym",
+    "details": "Normal gym block, moderate intensity.",
+    "category": "health"
+  },
+  {
+    "day": "2026-05-28",
+    "startTime": "11:15",
+    "endTime": "11:45",
+    "title": "Recovery & Transition",
+    "details": "Shower and return home.",
+    "category": "health"
+  },
+  {
+    "day": "2026-05-28",
+    "startTime": "11:45",
+    "endTime": "12:45",
+    "title": "Deep Work: Trading Bot",
+    "details": "Apply or test one fix related to multi-account bridge. Document result clearly.",
+    "category": "tradingbot"
+  },
+  {
+    "day": "2026-05-28",
+    "startTime": "12:45",
+    "endTime": "13:15",
+    "title": "Break",
+    "details": "Step away from screens.",
+    "category": "meals"
+  },
+  {
+    "day": "2026-05-28",
+    "startTime": "13:15",
+    "endTime": "14:15",
+    "title": "Creed Consult Operations",
+    "details": "Handle client communications, billing/admin, or a bounded client deliverable.",
+    "category": "creed"
+  },
+  {
+    "day": "2026-05-28",
+    "startTime": "14:15",
+    "endTime": "15:00",
+    "title": "Event Prep / Market Check",
+    "details": "Briefly check markets, then prepare for CIBC Square event.",
+    "category": "admin"
+  },
+  {
+    "day": "2026-05-28",
+    "startTime": "15:00",
+    "endTime": "15:45",
+    "title": "First Meal",
+    "details": "Eat a full meal before travel. Important because event runs late.",
+    "category": "meals"
+  },
+  {
+    "day": "2026-05-28",
+    "startTime": "15:45",
+    "endTime": "16:20",
+    "title": "Travel Buffer",
+    "details": "Travel to CIBC SQUARE, 81 Bay St., Toronto.",
+    "category": "free"
+  },
+  {
+    "day": "2026-05-28",
+    "startTime": "16:20",
+    "endTime": "16:30",
+    "title": "Arrival Buffer",
+    "details": "Arrive, check in, settle.",
+    "category": "free"
+  },
+  {
+    "day": "2026-05-28",
+    "startTime": "16:30",
+    "endTime": "20:30",
+    "title": "Event: Future Ready with AI",
+    "details": "CIBC SQUARE, 81 Bay St. Focus on AI adoption, enterprise use cases, and potential Creed Consult or Volatile relationships.",
+    "category": "networking"
+  },
+  {
+    "day": "2026-05-28",
+    "startTime": "20:30",
+    "endTime": "21:15",
+    "title": "Travel Home",
+    "details": "Travel back and decompress.",
+    "category": "free"
+  },
+  {
+    "day": "2026-05-28",
+    "startTime": "21:15",
+    "endTime": "21:45",
+    "title": "Light Meal / Recovery",
+    "details": "Eat if needed, hydrate, no heavy work.",
+    "category": "meals"
+  },
+  {
+    "day": "2026-05-28",
+    "startTime": "21:45",
+    "endTime": "22:15",
+    "title": "Follow-Up Notes",
+    "details": "Capture contacts, ideas, and next actions. Keep this short.",
+    "category": "networking"
+  },
+  {
+    "day": "2026-05-28",
+    "startTime": "22:15",
+    "endTime": "23:00",
+    "title": "Evening Wind-Down",
+    "details": "Hygiene, prayer/reflection, sleep by 11:00 PM.",
+    "category": "free"
+  },
+  {
+    "day": "2026-05-29",
+    "startTime": "06:00",
+    "endTime": "06:15",
+    "title": "Wake & Hydration",
+    "details": "Wake, water, light mobility.",
+    "category": "health"
+  },
+  {
+    "day": "2026-05-29",
+    "startTime": "06:15",
+    "endTime": "06:35",
+    "title": "Prayer / Meditation",
+    "details": "Simple goal: show up, contribute, learn, make one useful connection.",
+    "category": "spiritual"
+  },
+  {
+    "day": "2026-05-29",
+    "startTime": "06:35",
+    "endTime": "06:55",
+    "title": "Run 1km",
+    "details": "Complete 1 km easy run.",
+    "category": "health"
+  },
+  {
+    "day": "2026-05-29",
+    "startTime": "06:55",
+    "endTime": "07:30",
+    "title": "Reset",
+    "details": "Shower and pack for the hackathon.",
+    "category": "free"
+  },
+  {
+    "day": "2026-05-29",
+    "startTime": "07:30",
+    "endTime": "08:15",
+    "title": "Trading Pre-Market Scan",
+    "details": "Review key markets, write levels, decide if this is a low-trading day.",
+    "category": "trading"
+  },
+  {
+    "day": "2026-05-29",
+    "startTime": "08:15",
+    "endTime": "09:00",
+    "title": "Hackathon Prep",
+    "details": "Review tools, laptop, chargers, GitHub, notes, and possible project ideas connected to Volatile or AI avatar workflows.",
+    "category": "admin"
+  },
+  {
+    "day": "2026-05-29",
+    "startTime": "09:00",
+    "endTime": "09:30",
+    "title": "Travel / Setup Buffer",
+    "details": "Travel if hackathon starts in the morning; otherwise use as setup time.",
+    "category": "free"
+  },
+  {
+    "day": "2026-05-29",
+    "startTime": "09:30",
+    "endTime": "10:00",
+    "title": "Market Open Check",
+    "details": "Quick check only. Do not split attention if hackathon has started.",
+    "category": "trading"
+  },
+  {
+    "day": "2026-05-29",
+    "startTime": "10:00",
+    "endTime": "12:00",
+    "title": "AI Hackathon: Build Session",
+    "details": "Participate actively. If timing differs, use as focused hackathon preparation or remote build block.",
+    "category": "networking"
+  },
+  {
+    "day": "2026-05-29",
+    "startTime": "12:00",
+    "endTime": "12:30",
+    "title": "Break",
+    "details": "Hydrate, step outside, rest eyes.",
+    "category": "meals"
+  },
+  {
+    "day": "2026-05-29",
+    "startTime": "12:30",
+    "endTime": "15:00",
+    "title": "AI Hackathon: Collaboration",
+    "details": "Continue building, ideating, or collaborating. Keep fasting until 3:00 PM.",
+    "category": "networking"
+  },
+  {
+    "day": "2026-05-29",
+    "startTime": "15:00",
+    "endTime": "15:45",
+    "title": "First Meal",
+    "details": "Eat during hackathon break or nearby. Prioritize enough food to sustain the afternoon.",
+    "category": "meals"
+  },
+  {
+    "day": "2026-05-29",
+    "startTime": "15:45",
+    "endTime": "18:00",
+    "title": "AI Hackathon: Execution",
+    "details": "Contribute to final build, presentation prep, or demo polish.",
+    "category": "networking"
+  },
+  {
+    "day": "2026-05-29",
+    "startTime": "18:00",
+    "endTime": "19:00",
+    "title": "Hackathon Wrap / Networking",
+    "details": "Exchange contacts, note useful tools, identify ideas that feed Volatile, Creed Consult, or AI content.",
+    "category": "networking"
+  },
+  {
+    "day": "2026-05-29",
+    "startTime": "19:00",
+    "endTime": "20:00",
+    "title": "Travel / Dinner",
+    "details": "Travel home and eat if needed.",
+    "category": "meals"
+  },
+  {
+    "day": "2026-05-29",
+    "startTime": "20:00",
+    "endTime": "20:45",
+    "title": "Capture Notes",
+    "details": "Write down people met, product ideas, technical insights, and follow-ups.",
+    "category": "networking"
+  },
+  {
+    "day": "2026-05-29",
+    "startTime": "20:45",
+    "endTime": "21:45",
+    "title": "Recovery",
+    "details": "No demanding work. Let the nervous system come down.",
+    "category": "free"
+  },
+  {
+    "day": "2026-05-29",
+    "startTime": "21:45",
+    "endTime": "23:00",
+    "title": "Evening Wind-Down",
+    "details": "Hygiene, prayer/reflection, screens down, sleep by 11:00 PM.",
+    "category": "free"
+  },
+  {
+    "day": "2026-05-30",
+    "startTime": "06:00",
+    "endTime": "06:15",
+    "title": "Wake & Hydration",
+    "details": "Wake, water, slow start.",
+    "category": "health"
+  },
+  {
+    "day": "2026-05-30",
+    "startTime": "06:15",
+    "endTime": "06:35",
+    "title": "Prayer / Meditation",
+    "details": "Reflect on the week's lessons and reset emotionally.",
+    "category": "spiritual"
+  },
+  {
+    "day": "2026-05-30",
+    "startTime": "06:35",
+    "endTime": "06:55",
+    "title": "Run 1km",
+    "details": "Complete 1 km easy run.",
+    "category": "health"
+  },
+  {
+    "day": "2026-05-30",
+    "startTime": "06:55",
+    "endTime": "07:45",
+    "title": "Reset",
+    "details": "Shower, clean space, light planning.",
+    "category": "free"
+  },
+  {
+    "day": "2026-05-30",
+    "startTime": "07:45",
+    "endTime": "08:30",
+    "title": "Weekly Trading Review",
+    "details": "Review the week's trades, missed setups, emotional patterns, and best lessons.",
+    "category": "trading"
+  },
+  {
+    "day": "2026-05-30",
+    "startTime": "08:30",
+    "endTime": "09:30",
+    "title": "Deep Work: Trading Journal & Bot Notes",
+    "details": "Consolidate trading bot findings and trading journal into one clear improvement list.",
+    "category": "tradingbot"
+  },
+  {
+    "day": "2026-05-30",
+    "startTime": "09:30",
+    "endTime": "10:00",
+    "title": "Break",
+    "details": "Walk, stretch, hydrate.",
+    "category": "meals"
+  },
+  {
+    "day": "2026-05-30",
+    "startTime": "10:00",
+    "endTime": "11:15",
+    "title": "Gym",
+    "details": "Gym session if energy is good. If fatigued, replace with mobility and sauna/walk.",
+    "category": "health"
+  },
+  {
+    "day": "2026-05-30",
+    "startTime": "11:15",
+    "endTime": "12:00",
+    "title": "Recovery",
+    "details": "Shower and reset.",
+    "category": "health"
+  },
+  {
+    "day": "2026-05-30",
+    "startTime": "12:00",
+    "endTime": "13:00",
+    "title": "Deep Work: AI Avatar Content",
+    "details": "Produce one short script, avatar test, or content template for personal brand.",
+    "category": "avatar"
+  },
+  {
+    "day": "2026-05-30",
+    "startTime": "13:00",
+    "endTime": "13:45",
+    "title": "Break / Errands",
+    "details": "Light errands or chores.",
+    "category": "free"
+  },
+  {
+    "day": "2026-05-30",
+    "startTime": "13:45",
+    "endTime": "14:45",
+    "title": "Digital Product Development",
+    "details": "Build one tangible course or EA asset: lesson outline, worksheet, sales page skeleton, or EA feature list.",
+    "category": "product"
+  },
+  {
+    "day": "2026-05-30",
+    "startTime": "14:45",
+    "endTime": "15:00",
+    "title": "Transition",
+    "details": "Prepare first meal.",
+    "category": "meals"
+  },
+  {
+    "day": "2026-05-30",
+    "startTime": "15:00",
+    "endTime": "15:45",
+    "title": "First Meal",
+    "details": "Eat and relax.",
+    "category": "meals"
+  },
+  {
+    "day": "2026-05-30",
+    "startTime": "15:45",
+    "endTime": "16:45",
+    "title": "Networking Follow-Ups",
+    "details": "Send follow-up messages from Wednesday, Thursday, and Friday. Keep messages short and specific.",
+    "category": "networking"
+  },
+  {
+    "day": "2026-05-30",
+    "startTime": "16:45",
+    "endTime": "18:00",
+    "title": "Personal / Outdoor Time",
+    "details": "Recovery, walk, social time, or low-pressure activity.",
+    "category": "free"
+  },
+  {
+    "day": "2026-05-30",
+    "startTime": "18:00",
+    "endTime": "19:00",
+    "title": "Dinner",
+    "details": "Eat and decompress.",
+    "category": "meals"
+  },
+  {
+    "day": "2026-05-30",
+    "startTime": "19:00",
+    "endTime": "20:00",
+    "title": "Light Creative Block",
+    "details": "Optional content editing, brand notes, or reading. Stop if energy is low.",
+    "category": "avatar"
+  },
+  {
+    "day": "2026-05-30",
+    "startTime": "20:00",
+    "endTime": "22:00",
+    "title": "Open Recovery Block",
+    "details": "Social, leisure, or personal reset.",
+    "category": "free"
+  },
+  {
+    "day": "2026-05-30",
+    "startTime": "22:00",
+    "endTime": "23:00",
+    "title": "Evening Wind-Down",
+    "details": "Screens down, hygiene, reflection, sleep by 11:00 PM.",
+    "category": "free"
+  },
+  {
+    "day": "2026-05-31",
+    "startTime": "06:00",
+    "endTime": "06:15",
+    "title": "Wake & Hydration",
+    "details": "Wake, water, gentle mobility.",
+    "category": "health"
+  },
+  {
+    "day": "2026-05-31",
+    "startTime": "06:15",
+    "endTime": "06:40",
+    "title": "Prayer / Meditation",
+    "details": "Longer reflection and gratitude block.",
+    "category": "spiritual"
+  },
+  {
+    "day": "2026-05-31",
+    "startTime": "06:40",
+    "endTime": "07:00",
+    "title": "Run 1km",
+    "details": "Complete 1 km easy run, reaching the 7 km weekly total.",
+    "category": "health"
+  },
+  {
+    "day": "2026-05-31",
+    "startTime": "07:00",
+    "endTime": "08:00",
+    "title": "Reset",
+    "details": "Shower, tidy room, laundry or light cleaning.",
+    "category": "free"
+  },
+  {
+    "day": "2026-05-31",
+    "startTime": "08:00",
+    "endTime": "09:00",
+    "title": "Weekly Review",
+    "details": "Review Volatile, trading, Creed Consult, avatar system, bot, networking, and product development progress.",
+    "category": "planning"
+  },
+  {
+    "day": "2026-05-31",
+    "startTime": "09:00",
+    "endTime": "09:30",
+    "title": "Break",
+    "details": "Step away from screens.",
+    "category": "meals"
+  },
+  {
+    "day": "2026-05-31",
+    "startTime": "09:30",
+    "endTime": "10:30",
+    "title": "Deep Work: Volatile Planning",
+    "details": "Define next week's signal pipeline milestones and decide the first Monday task.",
+    "category": "volatile"
+  },
+  {
+    "day": "2026-05-31",
+    "startTime": "10:30",
+    "endTime": "11:30",
+    "title": "Mobility / Light Gym",
+    "details": "Optional light gym, long walk, stretching, or recovery session. Keep Sunday lower intensity.",
+    "category": "health"
+  },
+  {
+    "day": "2026-05-31",
+    "startTime": "11:30",
+    "endTime": "12:30",
+    "title": "Personal Admin",
+    "details": "Calendar review, budget check, inbox cleanup, and errands list.",
+    "category": "admin"
+  },
+  {
+    "day": "2026-05-31",
+    "startTime": "12:30",
+    "endTime": "13:30",
+    "title": "Break / Rest",
+    "details": "Rest, reading, or family time.",
+    "category": "free"
+  },
+  {
+    "day": "2026-05-31",
+    "startTime": "13:30",
+    "endTime": "14:30",
+    "title": "Creed Consult & Networking Review",
+    "details": "Prepare next-week client priorities and schedule follow-ups from events.",
+    "category": "creed"
+  },
+  {
+    "day": "2026-05-31",
+    "startTime": "14:30",
+    "endTime": "15:00",
+    "title": "Meal Prep Transition",
+    "details": "Prepare first meal and plan simple meals for the week.",
+    "category": "meals"
+  },
+  {
+    "day": "2026-05-31",
+    "startTime": "15:00",
+    "endTime": "15:45",
+    "title": "First Meal",
+    "details": "Eat and relax.",
+    "category": "meals"
+  },
+  {
+    "day": "2026-05-31",
+    "startTime": "15:45",
+    "endTime": "16:45",
+    "title": "Digital Product Planning",
+    "details": "Choose one product milestone for next week and define the smallest useful deliverable.",
+    "category": "product"
+  },
+  {
+    "day": "2026-05-31",
+    "startTime": "16:45",
+    "endTime": "18:00",
+    "title": "Recovery / Personal Time",
+    "details": "Keep this open and restorative.",
+    "category": "free"
+  },
+  {
+    "day": "2026-05-31",
+    "startTime": "18:00",
+    "endTime": "19:00",
+    "title": "Dinner",
+    "details": "Eat and decompress.",
+    "category": "meals"
+  },
+  {
+    "day": "2026-05-31",
+    "startTime": "19:00",
+    "endTime": "20:00",
+    "title": "Monday Setup",
+    "details": "Lay out gym clothes, prepare trading watchlist template, set top three Monday priorities.",
+    "category": "planning"
+  },
+  {
+    "day": "2026-05-31",
+    "startTime": "20:00",
+    "endTime": "21:30",
+    "title": "Low-Stimulation Evening",
+    "details": "Reading, planning, or calm leisure.",
+    "category": "free"
+  },
+  {
+    "day": "2026-05-31",
+    "startTime": "21:30",
+    "endTime": "22:00",
+    "title": "Weekly Closure",
+    "details": "Write a short note: what worked, what to stop, what to repeat.",
+    "category": "planning"
+  },
+  {
+    "day": "2026-05-31",
+    "startTime": "22:00",
+    "endTime": "23:00",
+    "title": "Evening Wind-Down",
+    "details": "Hygiene, prayer/reflection, lights out by 11:00 PM.",
+    "category": "free"
+  }
+]
