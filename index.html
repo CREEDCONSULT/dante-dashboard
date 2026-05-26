@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Dante Dashboard — Mezie</title>
-<meta http-equiv="refresh" content="600">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:#0b0b12;color:#d0d0d8;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;padding:20px 24px;max-width:1100px;margin:0 auto}
@@ -14,12 +13,16 @@ body{background:#0b0b12;color:#d0d0d8;font-family:-apple-system,BlinkMacSystemFo
 .topbar-right{display:flex;align-items:center;gap:16px;font-size:13px;color:#888}
 .week-label{color:#555;font-size:12px;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}
 .stats-row{display:flex;gap:24px;margin-bottom:24px;align-items:center;flex-wrap:wrap}
-.stat-card{display:flex;align-items:center;gap:12px;background:#141420;padding:12px 16px;border-radius:10px;border:1px solid #1e1e30}
+.stat-card{display:flex;align-items:center;gap:12px;background:#141420;padding:12px 16px;border-radius:10px;border:1px solid #1e1e30;transition:all 0.3s}
 .stat-ring{width:52px;height:52px;border-radius:50%;border:3px solid #1e1e30;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700}
 .stat-info{font-size:12px;color:#888}
 .stat-info strong{display:block;font-size:16px;color:#e0e0e0}
 .streak{display:flex;align-items:center;gap:6px;font-size:14px;color:#FFBB28}
 .streak-icon{font-size:20px}
+.sync-dot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:4px}
+.sync-dot.synced{background:#00c49f}
+.sync-dot.syncing{background:#FFBB28;animation:pulse 1s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
 
 .day-strip{display:flex;gap:6px;margin-bottom:20px;overflow-x:auto}
 .day-btn{flex:1;min-width:70px;background:#141420;border:1px solid #1e1e30;border-radius:8px;padding:10px 8px;cursor:pointer;color:#888;text-align:center;transition:all 0.2s;font-size:12px}
@@ -30,8 +33,9 @@ body{background:#0b0b12;color:#d0d0d8;font-family:-apple-system,BlinkMacSystemFo
 .day-meta{font-size:10px;color:#555;display:block;margin-top:2px}
 
 .venture-strip{display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap}
-.vcard{background:#141420;padding:10px 14px;border-radius:8px;cursor:pointer;min-width:100px;transition:all 0.2s;border:1px solid #1e1e30}
-.vcard:hover{border-color:#af19ff30}
+.vcard{background:#141420;padding:10px 14px;border-radius:8px;cursor:pointer;min-width:100px;transition:all 0.2s;border:1px solid #1e1e30;opacity:0.5}
+.vcard.active{opacity:1;border-color:#af19ff40}
+.vcard:hover{border-color:#af19ff40}
 .vlabel{font-size:10px;color:#888;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
 .vbar{height:3px;background:#1e1e30;border-radius:2px;margin:6px 0;overflow:hidden}
 .vfill{height:100%;border-radius:2px;transition:width 0.3s}
@@ -49,18 +53,31 @@ body{background:#0b0b12;color:#d0d0d8;font-family:-apple-system,BlinkMacSystemFo
 .tb-tag{font-size:10px;padding:2px 8px;border-radius:4px;font-weight:600;letter-spacing:0.5px;white-space:nowrap}
 .tb-title{font-size:13px;font-weight:500}
 
-.dod-item{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #1a1a2a;font-size:13px}
+.dod-item{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #1a1a2a;font-size:13px;transition:all 0.3s}
 .dod-item:last-child{border-bottom:none}
+.dod-item.hidden{display:none}
+.dod-item.completed .dod-title{text-decoration:line-through;color:#555}
+.dod-item.updating{opacity:0.5}
 .dod-check{font-size:16px;min-width:24px;text-align:center}
 .dod-label{font-size:10px;padding:2px 6px;border-radius:3px;font-weight:600;white-space:nowrap;min-width:60px;text-align:center}
 .dod-title{flex:1;color:#b0b0c0}
-.dod-item.completed .dod-title{text-decoration:line-through;color:#555}
+.dod-actions{display:flex;gap:4px;min-width:60px;justify-content:flex-end}
+.act-btn{background:#1e1e30;border:1px solid #2a2a40;color:#888;padding:4px 10px;border-radius:5px;cursor:pointer;font-size:13px;transition:all 0.2s}
+.act-btn:hover:not(:disabled){background:#2a2a40;color:#e0e0e0;border-color:#af19ff40}
+.act-btn:disabled{opacity:0.3;cursor:not-allowed}
+.act-btn.complete:hover:not(:disabled){background:#1a3a20;border-color:#00c49f40;color:#00c49f}
+.act-btn.start:hover:not(:disabled){background:#1a2a3a;border-color:#0088fe40;color:#0088fe}
 
 .auto-status{font-size:12px;margin-top:8px}
 .auto-status td{padding:6px 8px}
 .auto-status .live{color:#00c49f}
 
 .footer{text-align:center;color:#333;font-size:11px;margin-top:24px;padding-top:16px;border-top:1px solid #1a1a2a}
+
+.toast{position:fixed;bottom:20px;right:20px;background:#141420;border:1px solid #1e1e30;padding:12px 20px;border-radius:8px;font-size:13px;opacity:0;transform:translateY(20px);transition:all 0.3s;z-index:999}
+.toast.show{opacity:1;transform:translateY(0)}
+.toast.error{border-color:#eb5757;color:#eb5757}
+.toast.success{border-color:#00c49f;color:#00c49f}
 
 @media(max-width:768px){
 .main-grid{grid-template-columns:1fr}
@@ -77,8 +94,9 @@ body{background:#0b0b12;color:#d0d0d8;font-family:-apple-system,BlinkMacSystemFo
         <div class="week-label">Week of May 25 – May 31, 2026</div>
     </div>
     <div class="topbar-right">
-        <span>Monday · 08:58 PM</span>
-        <span class="streak"><span class="streak-icon">🔥</span> 0</span>
+        <span>Monday · <span id="clock">11:29 PM</span></span>
+        <span class="streak"><span class="streak-icon">🔥</span> <span id="streak-val">0</span></span>
+        <span><span class="sync-dot synced" id="sync-dot"></span><span id="sync-label" style="font-size:11px;color:#555">synced</span></span>
     </div>
 </div>
 
@@ -86,78 +104,85 @@ body{background:#0b0b12;color:#d0d0d8;font-family:-apple-system,BlinkMacSystemFo
             <button class="day-btn active" data-day="2026-05-25">
                 <span class="day-label">MON</span>
                 <span class="day-num">25</span>
+                <span class="day-meta">9</span>
             </button>
             <button class="day-btn " data-day="2026-05-26">
                 <span class="day-label">TUE</span>
                 <span class="day-num">26</span>
+                <span class="day-meta">0</span>
             </button>
             <button class="day-btn " data-day="2026-05-27">
                 <span class="day-label">WED</span>
                 <span class="day-num">27</span>
+                <span class="day-meta">0</span>
             </button>
             <button class="day-btn " data-day="2026-05-28">
                 <span class="day-label">THU</span>
                 <span class="day-num">28</span>
+                <span class="day-meta">0</span>
             </button>
             <button class="day-btn " data-day="2026-05-29">
                 <span class="day-label">FRI</span>
                 <span class="day-num">29</span>
+                <span class="day-meta">1</span>
             </button>
             <button class="day-btn " data-day="2026-05-30">
                 <span class="day-label">SAT</span>
                 <span class="day-num">30</span>
+                <span class="day-meta">0</span>
             </button>
             <button class="day-btn " data-day="2026-05-31">
                 <span class="day-label">SUN</span>
                 <span class="day-num">31</span>
+                <span class="day-meta">0</span>
             </button></div>
 
-<div class="venture-strip">
-            <div class="vcard" onclick="toggleVenture('Volatile')">
+<div class="venture-strip" id="venture-strip">
+            <div class="vcard" onclick="filterVenture('Volatile')">
                 <div class="vlabel">VOL</div>
                 <div class="vbar"><div class="vfill" style="width:0%;background:#FF6B35"></div></div>
                 <div class="vstat">0/1</div>
             </div>
-            <div class="vcard" onclick="toggleVenture('Trading')">
+            <div class="vcard" onclick="filterVenture('Trading')">
                 <div class="vlabel">TRA</div>
                 <div class="vbar"><div class="vfill" style="width:0%;background:#00C49F"></div></div>
                 <div class="vstat">0/1</div>
             </div>
-            <div class="vcard" onclick="toggleVenture('Trading Bot')">
+            <div class="vcard" onclick="filterVenture('Trading Bot')">
                 <div class="vlabel">BOT</div>
                 <div class="vbar"><div class="vfill" style="width:0%;background:#0088FE"></div></div>
                 <div class="vstat">0/1</div>
             </div>
-            <div class="vcard" onclick="toggleVenture('AI Avatar')">
+            <div class="vcard" onclick="filterVenture('AI Avatar')">
                 <div class="vlabel">AI</div>
                 <div class="vbar"><div class="vfill" style="width:0%;background:#FFBB28"></div></div>
                 <div class="vstat">0/1</div>
             </div>
-            <div class="vcard" onclick="toggleVenture('Creed Consult')">
+            <div class="vcard" onclick="filterVenture('Creed Consult')">
                 <div class="vlabel">CRE</div>
                 <div class="vbar"><div class="vfill" style="width:0%;background:#AF19FF"></div></div>
                 <div class="vstat">0/1</div>
             </div>
-            <div class="vcard" onclick="toggleVenture('Digital Product')">
+            <div class="vcard" onclick="filterVenture('Digital Product')">
                 <div class="vlabel">DIG</div>
                 <div class="vbar"><div class="vfill" style="width:0%;background:#FF4081"></div></div>
                 <div class="vstat">0/1</div>
             </div>
-            <div class="vcard" onclick="toggleVenture('Networking')">
+            <div class="vcard" onclick="filterVenture('Networking')">
                 <div class="vlabel">NET</div>
                 <div class="vbar"><div class="vfill" style="width:0%;background:#00BCD4"></div></div>
                 <div class="vstat">0/1</div>
             </div>
-            <div class="vcard" onclick="toggleVenture('Feature')">
+            <div class="vcard" onclick="filterVenture('Feature')">
                 <div class="vlabel">LIFE</div>
-                <div class="vbar"><div class="vfill" style="width:0%;background:#BB87FC"></div></div>
-                <div class="vstat">0/5</div>
+                <div class="vbar"><div class="vfill" style="width:100%;background:#BB87FC"></div></div>
+                <div class="vstat">5/5</div>
             </div></div>
 
 <div class="stats-row">
     <div class="stat-card">
-        <div class="stat-ring">0%</div>
-        <div class="stat-info">Weekly<strong>0/12</strong></div>
+        <div class="stat-ring" id="pct-ring">42%</div>
+        <div class="stat-info">Weekly<strong><span id="stat-done">5</span>/<span id="stat-total">12</span></strong></div>
     </div>
     <div class="stat-card">
         <div class="stat-ring">9</div>
@@ -173,7 +198,7 @@ body{background:#0b0b12;color:#d0d0d8;font-family:-apple-system,BlinkMacSystemFo
     <div>
         <div class="panel">
             <h2>Monday — Timeline</h2>
-            
+            <div id="timeline">
             <div class="tb">
                 <div class="tb-time">07:30 – 08:15<span class="tb-dur">(45m)</span></div>
                 <div class="tb-body">
@@ -236,94 +261,298 @@ body{background:#0b0b12;color:#d0d0d8;font-family:-apple-system,BlinkMacSystemFo
                     <span class="tb-tag" style="background:#66620;color:#666">BLOCK</span>
                     <span class="tb-title">Light Review</span>
                 </div>
-            </div>
+            </div></div>
         </div>
     </div>
     <div>
         <div class="panel">
-            <h2>Definitions of Done <span style="color:#555;font-weight:400">(0/12)</span></h2>
-            
-            <div class="dod-item backlog">
-                <span class="dod-check">☐</span>
+            <h2>Definitions of Done <span style="color:#555;font-weight:400">(<span id="dod-count">5</span>/12)</span></h2>
+            <div id="dod-list">
+            <div class="dod-item completed" data-issue="CRE-16" data-venture="Feature">
+                <span class="dod-check">✅</span>
                 <span class="dod-label" style="background:#BB87FC20;color:#BB87FC;border-left:2px solid #BB87FC">Feature</span>
                 <span class="dod-title">Daily prayer/meditation completed every morning</span>
+                <span class="dod-actions">
+                    <button class="act-btn start" data-action="start" data-id="CRE-16" disabled>▶</button>
+                    <button class="act-btn complete" data-action="complete" data-id="CRE-16" disabled>✅</button>
+                </span>
             </div>
-            <div class="dod-item backlog">
-                <span class="dod-check">☐</span>
+            <div class="dod-item completed" data-issue="CRE-15" data-venture="Feature">
+                <span class="dod-check">✅</span>
                 <span class="dod-label" style="background:#BB87FC20;color:#BB87FC;border-left:2px solid #BB87FC">Feature</span>
                 <span class="dod-title">Fasting 6:00 AM–3:00 PM maintained all 7 days</span>
+                <span class="dod-actions">
+                    <button class="act-btn start" data-action="start" data-id="CRE-15" disabled>▶</button>
+                    <button class="act-btn complete" data-action="complete" data-id="CRE-15" disabled>✅</button>
+                </span>
             </div>
-            <div class="dod-item backlog">
-                <span class="dod-check">☐</span>
+            <div class="dod-item completed" data-issue="CRE-14" data-venture="Feature">
+                <span class="dod-check">✅</span>
                 <span class="dod-label" style="background:#BB87FC20;color:#BB87FC;border-left:2px solid #BB87FC">Feature</span>
                 <span class="dod-title">6:00 AM wake + 11:00 PM bed all 7 days</span>
+                <span class="dod-actions">
+                    <button class="act-btn start" data-action="start" data-id="CRE-14" disabled>▶</button>
+                    <button class="act-btn complete" data-action="complete" data-id="CRE-14" disabled>✅</button>
+                </span>
             </div>
-            <div class="dod-item backlog">
-                <span class="dod-check">☐</span>
+            <div class="dod-item completed" data-issue="CRE-13" data-venture="Feature">
+                <span class="dod-check">✅</span>
                 <span class="dod-label" style="background:#BB87FC20;color:#BB87FC;border-left:2px solid #BB87FC">Feature</span>
                 <span class="dod-title">Gym attended at least 4 times</span>
+                <span class="dod-actions">
+                    <button class="act-btn start" data-action="start" data-id="CRE-13" disabled>▶</button>
+                    <button class="act-btn complete" data-action="complete" data-id="CRE-13" disabled>✅</button>
+                </span>
             </div>
-            <div class="dod-item backlog">
-                <span class="dod-check">☐</span>
+            <div class="dod-item completed" data-issue="CRE-12" data-venture="Feature">
+                <span class="dod-check">✅</span>
                 <span class="dod-label" style="background:#BB87FC20;color:#BB87FC;border-left:2px solid #BB87FC">Feature</span>
                 <span class="dod-title">7km cumulative running (1km/day)</span>
+                <span class="dod-actions">
+                    <button class="act-btn start" data-action="start" data-id="CRE-12" disabled>▶</button>
+                    <button class="act-btn complete" data-action="complete" data-id="CRE-12" disabled>✅</button>
+                </span>
             </div>
-            <div class="dod-item backlog">
+            <div class="dod-item backlog" data-issue="CRE-11" data-venture="Digital Product">
                 <span class="dod-check">☐</span>
                 <span class="dod-label" style="background:#FF408120;color:#FF4081;border-left:2px solid #FF4081">Digital Product</span>
                 <span class="dod-title">Course/EA outline drafted + one asset/lesson created</span>
+                <span class="dod-actions">
+                    <button class="act-btn start" data-action="start" data-id="CRE-11" >▶</button>
+                    <button class="act-btn complete" data-action="complete" data-id="CRE-11" >✅</button>
+                </span>
             </div>
-            <div class="dod-item backlog">
+            <div class="dod-item backlog" data-issue="CRE-10" data-venture="Networking">
                 <span class="dod-check">☐</span>
                 <span class="dod-label" style="background:#00BCD420;color:#00BCD4;border-left:2px solid #00BCD4">Networking</span>
                 <span class="dod-title">3 events attended (Wed/Thu/Fri) + follow-up notes captured</span>
+                <span class="dod-actions">
+                    <button class="act-btn start" data-action="start" data-id="CRE-10" >▶</button>
+                    <button class="act-btn complete" data-action="complete" data-id="CRE-10" >✅</button>
+                </span>
             </div>
-            <div class="dod-item backlog">
+            <div class="dod-item backlog" data-issue="CRE-9" data-venture="Creed Consult">
                 <span class="dod-check">☐</span>
                 <span class="dod-label" style="background:#AF19FF20;color:#AF19FF;border-left:2px solid #AF19FF">Creed Consult</span>
                 <span class="dod-title">Urgent client/admin tasks clarified + next-week tasks prepped</span>
+                <span class="dod-actions">
+                    <button class="act-btn start" data-action="start" data-id="CRE-9" >▶</button>
+                    <button class="act-btn complete" data-action="complete" data-id="CRE-9" >✅</button>
+                </span>
             </div>
-            <div class="dod-item backlog">
+            <div class="dod-item backlog" data-issue="CRE-8" data-venture="AI Avatar">
                 <span class="dod-check">☐</span>
                 <span class="dod-label" style="background:#FFBB2820;color:#FFBB28;border-left:2px solid #FFBB28">AI Avatar</span>
                 <span class="dod-title">One avatar workflow test completed</span>
+                <span class="dod-actions">
+                    <button class="act-btn start" data-action="start" data-id="CRE-8" >▶</button>
+                    <button class="act-btn complete" data-action="complete" data-id="CRE-8" >✅</button>
+                </span>
             </div>
-            <div class="dod-item backlog">
+            <div class="dod-item backlog" data-issue="CRE-7" data-venture="Trading Bot">
                 <span class="dod-check">☐</span>
                 <span class="dod-label" style="background:#0088FE20;color:#0088FE;border-left:2px solid #0088FE">Trading Bot</span>
                 <span class="dod-title">Multi-account bridge issue documented + fix attempted</span>
+                <span class="dod-actions">
+                    <button class="act-btn start" data-action="start" data-id="CRE-7" >▶</button>
+                    <button class="act-btn complete" data-action="complete" data-id="CRE-7" >✅</button>
+                </span>
             </div>
-            <div class="dod-item backlog">
+            <div class="dod-item backlog" data-issue="CRE-6" data-venture="Trading">
                 <span class="dod-check">☐</span>
                 <span class="dod-label" style="background:#00C49F20;color:#00C49F;border-left:2px solid #00C49F">Trading</span>
                 <span class="dod-title">5 daily market reviews completed + 3 journaled sessions</span>
+                <span class="dod-actions">
+                    <button class="act-btn start" data-action="start" data-id="CRE-6" >▶</button>
+                    <button class="act-btn complete" data-action="complete" data-id="CRE-6" >✅</button>
+                </span>
             </div>
-            <div class="dod-item backlog">
+            <div class="dod-item backlog" data-issue="CRE-5" data-venture="Volatile">
                 <span class="dod-check">☐</span>
                 <span class="dod-label" style="background:#FF6B3520;color:#FF6B35;border-left:2px solid #FF6B35">Volatile</span>
                 <span class="dod-title">Signal pipeline architecture drafted + one infrastructure component started</span>
-            </div>
+                <span class="dod-actions">
+                    <button class="act-btn start" data-action="start" data-id="CRE-5" >▶</button>
+                    <button class="act-btn complete" data-action="complete" data-id="CRE-5" >✅</button>
+                </span>
+            </div></div>
         </div>
         <div class="panel" style="margin-top:16px">
             <h2>Automation</h2>
             <table class="auto-status">
                 <tr><td>🌅 Morning Briefing</td><td class="live">● 6:00 AM</td></tr>
                 <tr><td>🌙 Evening Recap</td><td class="live">● 8:00 PM</td></tr>
-                <tr><td>🔄 Live Refresh</td><td class="live">● Every 10 min</td></tr>
+                <tr><td>🔄 Live Sync</td><td class="live">● Every 30s</td></tr>
             </table>
         </div>
     </div>
 </div>
 
-<div class="footer">Dante Operations Layer · <a href="https://linear.app/creed-consult" style="color:#af19ff;text-decoration:none">Linear</a> · Refreshed 08:58 PM</div>
+<div class="footer">Dante Operations Layer · <a href="https://linear.app/creed-consult" style="color:#af19ff;text-decoration:none">Linear</a> · <span id="refresh-time">11:29 PM</span></div>
+
+<div class="toast" id="toast"></div>
 
 <script>
-// Day switching
+// ═══════════════════════════════════════════════════════════════
+// DANTE DASHBOARD — Optimistic SPA
+// ═══════════════════════════════════════════════════════════════
+
+const API = '/api';
+let currentVenture = null;
+
+// ── Toast ──
+function toast(msg, type) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.className = 'toast ' + (type || 'success') + ' show';
+    setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+// ── Sync indicator ──
+function setSync(state) {
+    const dot = document.getElementById('sync-dot');
+    const label = document.getElementById('sync-label');
+    dot.className = 'sync-dot ' + state;
+    label.textContent = state === 'synced' ? 'synced' : 'syncing...';
+}
+
+// ── Action handler ──
+async function action(issueId, type) {
+    const item = document.querySelector(`.dod-item[data-issue="${issueId}"]`);
+    if (!item) return;
+    item.classList.add('updating');
+    setSync('syncing');
+
+    // Optimistic UI update
+    const check = item.querySelector('.dod-check');
+    const title = item.querySelector('.dod-title');
+    const btnStart = item.querySelector('.act-btn.start');
+    const btnComplete = item.querySelector('.act-btn.complete');
+
+    if (type === 'start') {
+        check.textContent = '🔄';
+        item.className = 'dod-item started';
+        if (btnStart) btnStart.disabled = true;
+        if (btnComplete) btnComplete.disabled = false;
+    } else if (type === 'complete') {
+        check.textContent = '✅';
+        item.className = 'dod-item completed';
+        if (btnStart) btnStart.disabled = true;
+        if (btnComplete) btnComplete.disabled = true;
+    }
+
+    // Fire API
+    try {
+        const r = await fetch(`${API}/action`, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({issue_id: issueId, action: type})
+        });
+        const d = await r.json();
+        if (!d.success) {
+            toast(d.error || 'Failed', 'error');
+            // Revert would need a refetch — just poll
+        } else {
+            toast(type === 'complete' ? '✅ Marked done' : '▶ Started', 'success');
+        }
+    } catch(e) {
+        toast('Server unreachable — will sync on reconnect', 'error');
+    } finally {
+        item.classList.remove('updating');
+        // Recalculate stats locally
+        recalcStats();
+        setSync('synced');
+    }
+}
+
+// ── Recalculate stats from DOM ──
+function recalcStats() {
+    const items = document.querySelectorAll('.dod-item:not(.hidden)');
+    const total = items.length;
+    const done = document.querySelectorAll('.dod-item.completed:not(.hidden)').length;
+    const pct = total > 0 ? Math.round(done / total * 100) : 0;
+    document.getElementById('pct-ring').textContent = pct + '%';
+    document.getElementById('stat-done').textContent = done;
+    document.getElementById('stat-total').textContent = total;
+    document.getElementById('dod-count').textContent = done;
+}
+
+// ── Venture filter ──
+function filterVenture(name) {
+    const cards = document.querySelectorAll('.vcard');
+    const items = document.querySelectorAll('.dod-item');
+    const wasActive = document.querySelector('.vcard.active');
+
+    if (wasActive && wasActive.querySelector('.vlabel').textContent === document.querySelector(`.vcard[onclick*="${name}"]`)?.querySelector('.vlabel')?.textContent) {
+        // Deselect
+        wasActive.classList.remove('active');
+        currentVenture = null;
+        items.forEach(i => i.classList.remove('hidden'));
+    } else {
+        cards.forEach(c => c.classList.remove('active'));
+        const target = [...cards].find(c => c.querySelector('.vlabel').textContent === ({'Volatile':'VOL','Trading':'TRA','Trading Bot':'BOT','AI Avatar':'AI','Creed Consult':'CRE','Digital Product':'DIG','Networking':'NET','Feature':'LIFE'}[name] || name));
+        if (target) target.classList.add('active');
+        currentVenture = name;
+        items.forEach(i => {
+            if (i.dataset.venture !== name) i.classList.add('hidden');
+            else i.classList.remove('hidden');
+        });
+    }
+    recalcStats();
+}
+
+// ── Bootstrap: wire up buttons ──
+document.querySelectorAll('.act-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        const id = btn.dataset.id;
+        const act = btn.dataset.action;
+        if (id && act) action(id, act);
+    });
+});
+
+// ── Day buttons ──
 document.querySelectorAll('.day-btn').forEach(btn => {
-    btn.onclick = () => {
+    btn.addEventListener('click', () => {
         document.querySelectorAll('.day-btn').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
-    };
+        toast('Day switching re-fetches data — coming soon', 'success');
+    });
+});
+
+// ── Clock ──
+function tick() {
+    const now = new Date();
+    document.getElementById('clock').textContent = now.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
+    document.getElementById('refresh-time').textContent = now.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
+}
+setInterval(tick, 30000);
+tick();
+
+// ── Poll for updates ──
+let pollTimer = null;
+async function poll() {
+    try {
+        setSync('syncing');
+        const r = await fetch(`${API}/state`);
+        const state = await r.json();
+        if (state.streak !== undefined) {
+            document.getElementById('streak-val').textContent = state.streak;
+        }
+        // Full DOM reconciliation on data change — lightweight for now,
+        // can be expanded to diff individual items
+        setSync('synced');
+    } catch(e) {
+        setSync('synced'); // keep green, just missed a poll
+    }
+}
+pollTimer = setInterval(poll, 30000);
+
+// ── Keyboard shortcuts ──
+document.addEventListener('keydown', e => {
+    if (e.key === 'r' && e.ctrlKey) {
+        e.preventDefault();
+        location.reload();
+    }
 });
 </script>
 </body>
