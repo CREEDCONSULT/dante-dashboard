@@ -5,523 +5,693 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Dante Dashboard — Mezie</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{background:#0b0b12;color:#d0d0d8;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;padding:20px 24px;max-width:1100px;margin:0 auto}
-.topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid #1a1a2a}
-.topbar h1{font-size:22px;font-weight:700;letter-spacing:-0.5px}
-.topbar h1 span{background:linear-gradient(135deg,#af19ff,#ff4081);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.topbar-right{display:flex;align-items:center;gap:16px;font-size:13px;color:#888}
-.week-label{color:#555;font-size:12px;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}
-.stats-row{display:flex;gap:24px;margin-bottom:24px;align-items:center;flex-wrap:wrap}
-.stat-card{display:flex;align-items:center;gap:12px;background:#141420;padding:12px 16px;border-radius:10px;border:1px solid #1e1e30;transition:all 0.3s}
-.stat-ring{width:52px;height:52px;border-radius:50%;border:3px solid #1e1e30;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700}
-.stat-info{font-size:12px;color:#888}
-.stat-info strong{display:block;font-size:16px;color:#e0e0e0}
-.streak{display:flex;align-items:center;gap:6px;font-size:14px;color:#FFBB28}
-.streak-icon{font-size:20px}
-.sync-dot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:4px}
-.sync-dot.synced{background:#00c49f}
-.sync-dot.syncing{background:#FFBB28;animation:pulse 1s infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
-
-.day-strip{display:flex;gap:6px;margin-bottom:20px;overflow-x:auto}
-.day-btn{flex:1;min-width:70px;background:#141420;border:1px solid #1e1e30;border-radius:8px;padding:10px 8px;cursor:pointer;color:#888;text-align:center;transition:all 0.2s;font-size:12px}
-.day-btn:hover{border-color:#af19ff;color:#e0e0e0}
-.day-btn.active{background:#1a1030;border-color:#af19ff;color:#e0e0e0}
-.day-label{display:block;font-size:11px;color:#666}
-.day-num{display:block;font-size:20px;font-weight:600}
-.day-meta{font-size:10px;color:#555;display:block;margin-top:2px}
-
-.venture-strip{display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap}
-.vcard{background:#141420;padding:10px 14px;border-radius:8px;cursor:pointer;min-width:100px;transition:all 0.2s;border:1px solid #1e1e30;opacity:0.5}
-.vcard.active{opacity:1;border-color:#af19ff40}
-.vcard:hover{border-color:#af19ff40}
-.vlabel{font-size:10px;color:#888;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
-.vbar{height:3px;background:#1e1e30;border-radius:2px;margin:6px 0;overflow:hidden}
-.vfill{height:100%;border-radius:2px;transition:width 0.3s}
-.vstat{font-size:13px;font-weight:600}
-
-.main-grid{display:grid;grid-template-columns:1fr 360px;gap:20px}
-.panel{background:#141420;border-radius:12px;padding:20px;border:1px solid #1e1e30}
-.panel h2{font-size:13px;color:#666;text-transform:uppercase;letter-spacing:1px;margin-bottom:16px}
-
-.tb{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid #1a1a2a;align-items:flex-start}
-.tb:last-child{border-bottom:none}
-.tb-time{font-size:12px;color:#666;min-width:100px;font-variant-numeric:tabular-nums}
-.tb-dur{color:#444;margin-left:4px;font-size:11px}
-.tb-body{flex:1;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-.tb-tag{font-size:10px;padding:2px 8px;border-radius:4px;font-weight:600;letter-spacing:0.5px;white-space:nowrap}
-.tb-title{font-size:13px;font-weight:500}
-
-.dod-item{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #1a1a2a;font-size:13px;transition:all 0.3s}
-.dod-item:last-child{border-bottom:none}
-.dod-item.hidden{display:none}
-.dod-item.completed .dod-title{text-decoration:line-through;color:#555}
-.dod-item.updating{opacity:0.5}
-.dod-check{font-size:16px;min-width:24px;text-align:center}
-.dod-label{font-size:10px;padding:2px 6px;border-radius:3px;font-weight:600;white-space:nowrap;min-width:60px;text-align:center}
-.dod-title{flex:1;color:#b0b0c0}
-.dod-actions{display:flex;gap:4px;min-width:60px;justify-content:flex-end}
-.act-btn{background:#1e1e30;border:1px solid #2a2a40;color:#888;padding:4px 10px;border-radius:5px;cursor:pointer;font-size:13px;transition:all 0.2s}
-.act-btn:hover:not(:disabled){background:#2a2a40;color:#e0e0e0;border-color:#af19ff40}
-.act-btn:disabled{opacity:0.3;cursor:not-allowed}
-.act-btn.complete:hover:not(:disabled){background:#1a3a20;border-color:#00c49f40;color:#00c49f}
-.act-btn.start:hover:not(:disabled){background:#1a2a3a;border-color:#0088fe40;color:#0088fe}
-
-.auto-status{font-size:12px;margin-top:8px}
-.auto-status td{padding:6px 8px}
-.auto-status .live{color:#00c49f}
-
-.footer{text-align:center;color:#333;font-size:11px;margin-top:24px;padding-top:16px;border-top:1px solid #1a1a2a}
-
-.toast{position:fixed;bottom:20px;right:20px;background:#141420;border:1px solid #1e1e30;padding:12px 20px;border-radius:8px;font-size:13px;opacity:0;transform:translateY(20px);transition:all 0.3s;z-index:999}
-.toast.show{opacity:1;transform:translateY(0)}
-.toast.error{border-color:#eb5757;color:#eb5757}
-.toast.success{border-color:#00c49f;color:#00c49f}
-
-@media(max-width:768px){
-.main-grid{grid-template-columns:1fr}
-.stats-row{flex-direction:column;align-items:stretch}
-.day-strip{overflow-x:auto}
+/* ═══ OKLCH COLOR SYSTEM ═══ */
+:root {
+  --clr-health: oklch(72% 0.19 145);
+  --clr-spiritual: oklch(75% 0.15 80);
+  --clr-trading: oklch(65% 0.18 255);
+  --clr-creed: oklch(65% 0.2 300);
+  --clr-volatile: oklch(68% 0.2 30);
+  --clr-networking: oklch(72% 0.16 160);
+  --clr-avatar: oklch(70% 0.18 280);
+  --clr-product: oklch(70% 0.15 50);
+  --clr-admin: oklch(60% 0.12 300);
+  --clr-planning: oklch(60% 0.08 260);
+  --clr-tradingbot: oklch(65% 0.18 255);
+  --clr-meals: oklch(55% 0.02 260);
+  --clr-free: oklch(40% 0.01 260);
+  --bg: #0b0b12;
+  --surface: #141420;
+  --surface2: #1a1a2a;
+  --border: #1e1e30;
+  --text: #d0d0d8;
+  --text-dim: #888;
+  --text-muted: #555;
+  --accent: #af19ff;
+  --accent2: #ff4081;
+  --radius: 10px;
+  --radius-sm: 6px;
 }
+
+/* ═══ RESET ═══ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{
+  background:var(--bg);color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  font-size:13px;line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--accent);text-decoration:none}
+
+/* ═══ HEADER ═══ */
+.header{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:16px 24px;border-bottom:1px solid var(--border);
+  background:var(--surface);position:sticky;top:0;z-index:100;
+}
+.header-left{display:flex;align-items:center;gap:12px}
+.logo{
+  width:32px;height:32px;border-radius:8px;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  display:flex;align-items:center;justify-content:center;
+  font-weight:700;font-size:16px;color:#fff;
+}
+.header-title{font-size:16px;font-weight:600;letter-spacing:-0.3px}
+.header-sub{font-size:11px;color:var(--text-dim);margin-top:-2px}
+.header-right{display:flex;align-items:center;gap:16px}
+.clock{color:var(--text-dim);font-size:12px;font-variant-numeric:tabular-nums}
+.view-toggle{display:flex;gap:2px;background:var(--surface2);border-radius:6px;padding:2px}
+.view-btn{
+  padding:6px 14px;border:none;border-radius:5px;cursor:pointer;
+  font-size:12px;color:var(--text-dim);background:transparent;
+  transition:all 0.15s;
+}
+.view-btn.active{background:var(--accent);color:#fff}
+.view-btn:hover:not(.active){color:var(--text)}
+
+/* ═══ STATS ROW ═══ */
+.stats-row{
+  display:flex;gap:16px;padding:16px 24px;
+  overflow-x:auto;flex-wrap:wrap;align-items:center;
+}
+.stat-card{
+  display:flex;align-items:center;gap:12px;
+  background:var(--surface);padding:10px 16px;
+  border-radius:var(--radius);border:1px solid var(--border);
+}
+.stat-ring{position:relative;width:48px;height:48px;flex-shrink:0}
+.stat-ring svg{transform:rotate(-90deg);width:48px;height:48px}
+.ring-track{fill:none;stroke:var(--surface2);stroke-width:3.5}
+.ring-fill{fill:none;stroke-width:3.5;stroke-linecap:round;transition:stroke-dashoffset 0.5s}
+.ring-pct{
+  position:absolute;inset:0;display:flex;align-items:center;
+  justify-content:center;font-size:14px;font-weight:700;
+}
+.stat-info{font-size:11px;color:var(--text-dim)}
+.stat-info strong{display:block;font-size:15px;color:var(--text)}
+.streak{display:flex;align-items:center;gap:6px;font-size:14px;color:#FFBB28}
+.streak-icon{font-size:18px}
+
+/* ═══ VENTURE BARS ═══ */
+.venture-strip{display:flex;gap:8px;padding:0 24px 12px;flex-wrap:wrap}
+.vcard{
+  background:var(--surface);padding:8px 12px;border-radius:var(--radius-sm);
+  cursor:pointer;min-width:90px;transition:all 0.15s;
+  border:1px solid var(--border);
+}
+.vcard:hover{border-color:var(--accent)40}
+.vcard.active{border-color:var(--accent);background:#1a1030}
+.vlabel{font-size:10px;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:2px}
+.vbar{height:3px;background:var(--surface2);border-radius:2px;margin:4px 0;overflow:hidden}
+.vfill{height:100%;border-radius:2px;transition:width 0.3s}
+.vstat{font-size:12px;font-weight:600}
+
+/* ═══ DAY NAV ═══ */
+.day-strip{display:flex;gap:4px;padding:0 24px 12px;overflow-x:auto}
+.day-btn{
+  flex:1;min-width:70px;background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius-sm);padding:8px 6px;cursor:pointer;color:var(--text-dim);
+  text-align:center;transition:all 0.15s;font-size:11px;
+}
+.day-btn:hover{border-color:var(--accent);color:var(--text)}
+.day-btn.active{background:#1a1030;border-color:var(--accent);color:#e0e0e0}
+.day-label{display:block;font-size:10px;color:var(--text-muted)}
+.day-num{display:block;font-size:18px;font-weight:600}
+.day-progress{font-size:9px;color:var(--text-muted);display:block;margin-top:2px}
+
+/* ═══ 7-DAY COLUMNS ═══ */
+.columns{
+  display:grid;grid-template-columns:repeat(7,1fr);gap:8px;
+  padding:0 24px 24px;min-height:60vh;
+}
+.day-col{
+  background:var(--surface);border-radius:var(--radius);
+  border:1px solid var(--border);overflow:hidden;
+}
+.day-col.today{border-color:var(--accent)60;box-shadow:0 0 20px var(--accent)10}
+.col-header{
+  padding:10px 12px;border-bottom:1px solid var(--border);
+  display:flex;justify-content:space-between;align-items:center;
+}
+.col-day{font-size:11px;color:var(--text-dim);font-weight:600}
+.col-date{font-size:16px;font-weight:700}
+.col-focus{font-size:9px;color:var(--text-muted);padding:4px 12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.col-tasks{padding:8px 0;max-height:calc(100vh - 320px);overflow-y:auto}
+.col-tasks::-webkit-scrollbar{width:4px}
+.col-tasks::-webkit-scrollbar-track{background:transparent}
+.col-tasks::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+
+/* ═══ NOW INDICATOR ═══ */
+.now-bar{
+  display:flex;align-items:center;gap:8px;padding:4px 12px;
+  color:var(--clr-trading);font-size:10px;font-weight:600;
+}
+.now-dot{width:8px;height:8px;border-radius:50%;background:var(--clr-trading);animation:pulse 2s infinite}
+.now-line{flex:1;height:1px;background:var(--clr-trading)30}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+
+/* ═══ TASK CARD ═══ */
+.task-card{
+  padding:8px 12px;border-bottom:1px solid var(--border);
+  transition:all 0.2s;position:relative;
+}
+.task-card:last-child{border-bottom:none}
+.task-card:hover{background:var(--surface2)}
+.task-card.completed{opacity:0.5}
+.task-card.completed .task-title{text-decoration:line-through}
+.task-card.skipped{opacity:0.3}
+.task-card.carried_over{opacity:0.4;border-left:2px solid #FFBB28}
+.task-card.started{background:oklch(55% 0.02 260 / 0.15)}
+.task-time{font-size:10px;color:var(--text-muted);font-variant-numeric:tabular-nums;margin-bottom:2px}
+.task-dur{color:var(--text-muted);margin-left:4px;font-weight:400}
+.task-body{display:flex;align-items:flex-start;gap:6px}
+.task-cat{
+  font-size:9px;padding:1px 6px;border-radius:3px;font-weight:600;
+  white-space:nowrap;letter-spacing:0.3px;flex-shrink:0;margin-top:1px;
+}
+.task-title{font-size:11px;line-height:1.3;flex:1}
+.task-details{font-size:9px;color:var(--text-muted);margin-top:2px}
+.task-actions{display:flex;gap:3px;margin-top:4px}
+.act-btn{
+  background:var(--surface2);border:1px solid var(--border);
+  color:var(--text-dim);padding:2px 8px;border-radius:4px;
+  cursor:pointer;font-size:11px;transition:all 0.12s;
+}
+.act-btn:hover:not(:disabled){background:#2a2a40;color:#fff}
+.act-btn:disabled{opacity:0.3;cursor:not-allowed}
+.act-btn.start:hover:not(:disabled){border-color:var(--clr-trading);color:var(--clr-trading)}
+.act-btn.complete:hover:not(:disabled){border-color:var(--clr-health);color:var(--clr-health)}
+.act-btn.skip:hover:not(:disabled){border-color:var(--text-muted);color:var(--text-dim)}
+.act-btn.carry:hover:not(:disabled){border-color:#FFBB28;color:#FFBB28}
+
+/* ═══ DOD PANEL ═══ */
+.dod-toggle{
+  position:fixed;right:0;top:50%;transform:translateY(-50%);
+  background:var(--surface);border:1px solid var(--border);
+  border-right:none;border-radius:var(--radius) 0 0 var(--radius);
+  padding:12px 8px;cursor:pointer;z-index:50;
+  writing-mode:vertical-lr;font-size:10px;color:var(--text-dim);
+  letter-spacing:1px;transition:all 0.2s;
+}
+.dod-toggle:hover{background:var(--surface2);color:var(--text)}
+.dod-panel{
+  position:fixed;right:-380px;top:0;bottom:0;width:360px;
+  background:var(--surface);border-left:1px solid var(--border);
+  z-index:200;transition:right 0.3s;overflow-y:auto;
+}
+.dod-panel.open{right:0}
+.dod-overlay{position:fixed;inset:0;background:#0006;z-index:199;display:none}
+.dod-overlay.show{display:block}
+.dod-header{
+  padding:16px 20px;border-bottom:1px solid var(--border);
+  display:flex;justify-content:space-between;align-items:center;
+  position:sticky;top:0;background:var(--surface);z-index:1;
+}
+.dod-header h3{font-size:14px;font-weight:600}
+.dod-close{background:none;border:none;color:var(--text-dim);font-size:20px;cursor:pointer}
+.dod-body{padding:12px 20px}
+.dod-group{margin-bottom:16px}
+.dod-group-label{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);margin-bottom:6px}
+.dod-item{display:flex;align-items:center;gap:8px;padding:6px 0;font-size:12px}
+.dod-checkbox{width:16px;height:16px;border:1px solid var(--border);border-radius:3px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:10px}
+.dod-checkbox.checked{background:var(--clr-health);border-color:var(--clr-health);color:#fff}
+
+/* ═══ TOAST ═══ */
+.toast-container{position:fixed;bottom:20px;right:20px;z-index:300;display:flex;flex-direction:column;gap:8px}
+.toast{background:var(--surface2);border:1px solid var(--border);padding:10px 16px;border-radius:var(--radius-sm);font-size:12px;animation:slideIn 0.3s,slideOut 0.3s 1.2s forwards;max-width:300px}
+@keyframes slideIn{from{transform:translateX(100%);opacity:0}to{transform:translateX(0);opacity:1}}
+@keyframes slideOut{from{transform:translateX(0);opacity:1}to{transform:translateX(100%);opacity:0}}
+
+/* ═══ RESPONSIVE ═══ */
+@media(max-width:1200px){.columns{grid-template-columns:repeat(4,1fr)}}
+@media(max-width:768px){.columns{grid-template-columns:1fr};.venture-strip{flex-wrap:nowrap;overflow-x:auto}}
 </style>
 </head>
 <body>
 
-<div class="topbar">
+<!-- ═══ HEADER ═══ -->
+<div class="header">
+  <div class="header-left">
+    <div class="logo">D</div>
     <div>
-        <h1><span>Dante</span> Dashboard</h1>
-        <div class="week-label">Week of May 25 – May 31, 2026</div>
+      <div class="header-title">Dante Dashboard</div>
+      <div class="header-sub" id="weekLabel">Loading...</div>
     </div>
-    <div class="topbar-right">
-        <span>Tuesday · <span id="clock">10:10 AM</span></span>
-        <span class="streak"><span class="streak-icon">🔥</span> <span id="streak-val">1</span></span>
-        <span><span class="sync-dot synced" id="sync-dot"></span><span id="sync-label" style="font-size:11px;color:#555">synced</span></span>
+  </div>
+  <div class="header-right">
+    <div class="view-toggle">
+      <button class="view-btn active" data-view="week" onclick="setView('week')">Week</button>
+      <button class="view-btn" data-view="day" onclick="setView('day')">Day</button>
     </div>
+    <div class="clock" id="clock">00:00</div>
+  </div>
 </div>
 
-<div class="day-strip">
-            <button class="day-btn " data-day="2026-05-25">
-                <span class="day-label">MON</span>
-                <span class="day-num">25</span>
-                <span class="day-meta">9</span>
-            </button>
-            <button class="day-btn active" data-day="2026-05-26">
-                <span class="day-label">TUE</span>
-                <span class="day-num">26</span>
-                <span class="day-meta">0</span>
-            </button>
-            <button class="day-btn " data-day="2026-05-27">
-                <span class="day-label">WED</span>
-                <span class="day-num">27</span>
-                <span class="day-meta">0</span>
-            </button>
-            <button class="day-btn " data-day="2026-05-28">
-                <span class="day-label">THU</span>
-                <span class="day-num">28</span>
-                <span class="day-meta">0</span>
-            </button>
-            <button class="day-btn " data-day="2026-05-29">
-                <span class="day-label">FRI</span>
-                <span class="day-num">29</span>
-                <span class="day-meta">1</span>
-            </button>
-            <button class="day-btn " data-day="2026-05-30">
-                <span class="day-label">SAT</span>
-                <span class="day-num">30</span>
-                <span class="day-meta">0</span>
-            </button>
-            <button class="day-btn " data-day="2026-05-31">
-                <span class="day-label">SUN</span>
-                <span class="day-num">31</span>
-                <span class="day-meta">0</span>
-            </button></div>
+<!-- ═══ STATS ═══ -->
+<div class="stats-row" id="statsRow"></div>
 
-<div class="venture-strip" id="venture-strip">
-            <div class="vcard" onclick="filterVenture('Volatile')">
-                <div class="vlabel">VOL</div>
-                <div class="vbar"><div class="vfill" style="width:0%;background:#FF6B35"></div></div>
-                <div class="vstat">0/1</div>
-            </div>
-            <div class="vcard" onclick="filterVenture('Trading')">
-                <div class="vlabel">TRA</div>
-                <div class="vbar"><div class="vfill" style="width:0%;background:#00C49F"></div></div>
-                <div class="vstat">0/3</div>
-            </div>
-            <div class="vcard" onclick="filterVenture('Trading Bot')">
-                <div class="vlabel">BOT</div>
-                <div class="vbar"><div class="vfill" style="width:0%;background:#0088FE"></div></div>
-                <div class="vstat">0/1</div>
-            </div>
-            <div class="vcard" onclick="filterVenture('AI Avatar')">
-                <div class="vlabel">AI</div>
-                <div class="vbar"><div class="vfill" style="width:0%;background:#FFBB28"></div></div>
-                <div class="vstat">0/2</div>
-            </div>
-            <div class="vcard" onclick="filterVenture('Creed Consult')">
-                <div class="vlabel">CRE</div>
-                <div class="vbar"><div class="vfill" style="width:0%;background:#AF19FF"></div></div>
-                <div class="vstat">0/1</div>
-            </div>
-            <div class="vcard" onclick="filterVenture('Digital Product')">
-                <div class="vlabel">DIG</div>
-                <div class="vbar"><div class="vfill" style="width:0%;background:#FF4081"></div></div>
-                <div class="vstat">0/2</div>
-            </div>
-            <div class="vcard" onclick="filterVenture('Networking')">
-                <div class="vlabel">NET</div>
-                <div class="vbar"><div class="vfill" style="width:0%;background:#00BCD4"></div></div>
-                <div class="vstat">0/6</div>
-            </div></div>
+<!-- ═══ VENTURE BARS ═══ -->
+<div class="venture-strip" id="ventureStrip"></div>
 
-<div class="stats-row">
-    <div class="stat-card">
-        <div class="stat-ring" id="pct-ring">0%</div>
-        <div class="stat-info">Weekly<strong><span id="stat-done">0</span>/<span id="stat-total">16</span></strong></div>
-    </div>
-    <div class="stat-card">
-        <div class="stat-ring">0</div>
-        <div class="stat-info">Today<strong>blocks</strong></div>
-    </div>
-    <div class="stat-card">
-        <div class="stat-ring" style="color:#00c49f">●</div>
-        <div class="stat-info">Status<strong>Live</strong></div>
-    </div>
+<!-- ═══ DAY NAV ═══ -->
+<div class="day-strip" id="dayStrip"></div>
+
+<!-- ═══ 7-DAY COLUMNS ═══ -->
+<div class="columns" id="columns"></div>
+
+<!-- ═══ DOD TOGGLE ═══ -->
+<div class="dod-toggle" onclick="toggleDod()">D E F I N I T I O N S</div>
+<div class="dod-overlay" id="dodOverlay" onclick="toggleDod()"></div>
+<div class="dod-panel" id="dodPanel">
+  <div class="dod-header">
+    <h3>Definitions of Done</h3>
+    <button class="dod-close" onclick="toggleDod()">×</button>
+  </div>
+  <div class="dod-body" id="dodBody"></div>
 </div>
 
-<div class="main-grid">
-    <div>
-        <div class="panel">
-            <h2>Tuesday — Timeline</h2>
-            <div id="timeline"><div class="tb"><div class="tb-time">All day</div><div class="tb-body"><span class="tb-title" style="color:#666">No scheduled blocks today</span></div></div></div>
-        </div>
-    </div>
-    <div>
-        <div class="panel">
-            <h2>Definitions of Done <span style="color:#555;font-weight:400">(<span id="dod-count">0</span>/16)</span></h2>
-            <div id="dod-list">
-            <div class="dod-item backlog" data-issue="CRE-100" data-venture="Digital Product">
-                <span class="dod-check">☐</span>
-                <span class="dod-label" style="background:#FF408120;color:#FF4081;border-left:2px solid #FF4081">Digital Product</span>
-                <span class="dod-title">Digital Product Planning</span>
-                <span class="dod-actions">
-                    <button class="act-btn start" data-action="start" data-id="CRE-100" >▶</button>
-                    <button class="act-btn complete" data-action="complete" data-id="CRE-100" >✅</button>
-                </span>
-            </div>
-            <div class="dod-item backlog" data-issue="CRE-99" data-venture="Creed Consult">
-                <span class="dod-check">☐</span>
-                <span class="dod-label" style="background:#AF19FF20;color:#AF19FF;border-left:2px solid #AF19FF">Creed Consult</span>
-                <span class="dod-title">Creed Consult & Networking Review</span>
-                <span class="dod-actions">
-                    <button class="act-btn start" data-action="start" data-id="CRE-99" >▶</button>
-                    <button class="act-btn complete" data-action="complete" data-id="CRE-99" >✅</button>
-                </span>
-            </div>
-            <div class="dod-item backlog" data-issue="CRE-96" data-venture="Volatile">
-                <span class="dod-check">☐</span>
-                <span class="dod-label" style="background:#FF6B3520;color:#FF6B35;border-left:2px solid #FF6B35">Volatile</span>
-                <span class="dod-title">Deep Work: Volatile Planning</span>
-                <span class="dod-actions">
-                    <button class="act-btn start" data-action="start" data-id="CRE-96" >▶</button>
-                    <button class="act-btn complete" data-action="complete" data-id="CRE-96" >✅</button>
-                </span>
-            </div>
-            <div class="dod-item backlog" data-issue="CRE-92" data-venture="AI Avatar">
-                <span class="dod-check">☐</span>
-                <span class="dod-label" style="background:#FFBB2820;color:#FFBB28;border-left:2px solid #FFBB28">AI Avatar</span>
-                <span class="dod-title">Light Creative Block</span>
-                <span class="dod-actions">
-                    <button class="act-btn start" data-action="start" data-id="CRE-92" >▶</button>
-                    <button class="act-btn complete" data-action="complete" data-id="CRE-92" >✅</button>
-                </span>
-            </div>
-            <div class="dod-item backlog" data-issue="CRE-91" data-venture="Networking">
-                <span class="dod-check">☐</span>
-                <span class="dod-label" style="background:#00BCD420;color:#00BCD4;border-left:2px solid #00BCD4">Networking</span>
-                <span class="dod-title">Networking Follow-Ups</span>
-                <span class="dod-actions">
-                    <button class="act-btn start" data-action="start" data-id="CRE-91" >▶</button>
-                    <button class="act-btn complete" data-action="complete" data-id="CRE-91" >✅</button>
-                </span>
-            </div>
-            <div class="dod-item backlog" data-issue="CRE-90" data-venture="Digital Product">
-                <span class="dod-check">☐</span>
-                <span class="dod-label" style="background:#FF408120;color:#FF4081;border-left:2px solid #FF4081">Digital Product</span>
-                <span class="dod-title">Digital Product Development</span>
-                <span class="dod-actions">
-                    <button class="act-btn start" data-action="start" data-id="CRE-90" >▶</button>
-                    <button class="act-btn complete" data-action="complete" data-id="CRE-90" >✅</button>
-                </span>
-            </div>
-            <div class="dod-item backlog" data-issue="CRE-89" data-venture="AI Avatar">
-                <span class="dod-check">☐</span>
-                <span class="dod-label" style="background:#FFBB2820;color:#FFBB28;border-left:2px solid #FFBB28">AI Avatar</span>
-                <span class="dod-title">Deep Work: AI Avatar Content</span>
-                <span class="dod-actions">
-                    <button class="act-btn start" data-action="start" data-id="CRE-89" >▶</button>
-                    <button class="act-btn complete" data-action="complete" data-id="CRE-89" >✅</button>
-                </span>
-            </div>
-            <div class="dod-item backlog" data-issue="CRE-86" data-venture="Trading Bot">
-                <span class="dod-check">☐</span>
-                <span class="dod-label" style="background:#0088FE20;color:#0088FE;border-left:2px solid #0088FE">Trading Bot</span>
-                <span class="dod-title">Deep Work: Trading Journal & Bot Notes</span>
-                <span class="dod-actions">
-                    <button class="act-btn start" data-action="start" data-id="CRE-86" >▶</button>
-                    <button class="act-btn complete" data-action="complete" data-id="CRE-86" >✅</button>
-                </span>
-            </div>
-            <div class="dod-item backlog" data-issue="CRE-85" data-venture="Trading">
-                <span class="dod-check">☐</span>
-                <span class="dod-label" style="background:#00C49F20;color:#00C49F;border-left:2px solid #00C49F">Trading</span>
-                <span class="dod-title">Weekly Trading Review</span>
-                <span class="dod-actions">
-                    <button class="act-btn start" data-action="start" data-id="CRE-85" >▶</button>
-                    <button class="act-btn complete" data-action="complete" data-id="CRE-85" >✅</button>
-                </span>
-            </div>
-            <div class="dod-item backlog" data-issue="CRE-81" data-venture="Networking">
-                <span class="dod-check">☐</span>
-                <span class="dod-label" style="background:#00BCD420;color:#00BCD4;border-left:2px solid #00BCD4">Networking</span>
-                <span class="dod-title">Capture Notes</span>
-                <span class="dod-actions">
-                    <button class="act-btn start" data-action="start" data-id="CRE-81" >▶</button>
-                    <button class="act-btn complete" data-action="complete" data-id="CRE-81" >✅</button>
-                </span>
-            </div>
-            <div class="dod-item backlog" data-issue="CRE-80" data-venture="Networking">
-                <span class="dod-check">☐</span>
-                <span class="dod-label" style="background:#00BCD420;color:#00BCD4;border-left:2px solid #00BCD4">Networking</span>
-                <span class="dod-title">Hackathon Wrap / Networking</span>
-                <span class="dod-actions">
-                    <button class="act-btn start" data-action="start" data-id="CRE-80" >▶</button>
-                    <button class="act-btn complete" data-action="complete" data-id="CRE-80" >✅</button>
-                </span>
-            </div>
-            <div class="dod-item backlog" data-issue="CRE-79" data-venture="Networking">
-                <span class="dod-check">☐</span>
-                <span class="dod-label" style="background:#00BCD420;color:#00BCD4;border-left:2px solid #00BCD4">Networking</span>
-                <span class="dod-title">AI Hackathon: Execution</span>
-                <span class="dod-actions">
-                    <button class="act-btn start" data-action="start" data-id="CRE-79" >▶</button>
-                    <button class="act-btn complete" data-action="complete" data-id="CRE-79" >✅</button>
-                </span>
-            </div>
-            <div class="dod-item backlog" data-issue="CRE-78" data-venture="Networking">
-                <span class="dod-check">☐</span>
-                <span class="dod-label" style="background:#00BCD420;color:#00BCD4;border-left:2px solid #00BCD4">Networking</span>
-                <span class="dod-title">AI Hackathon: Collaboration</span>
-                <span class="dod-actions">
-                    <button class="act-btn start" data-action="start" data-id="CRE-78" >▶</button>
-                    <button class="act-btn complete" data-action="complete" data-id="CRE-78" >✅</button>
-                </span>
-            </div>
-            <div class="dod-item backlog" data-issue="CRE-77" data-venture="Networking">
-                <span class="dod-check">☐</span>
-                <span class="dod-label" style="background:#00BCD420;color:#00BCD4;border-left:2px solid #00BCD4">Networking</span>
-                <span class="dod-title">AI Hackathon: Build Session</span>
-                <span class="dod-actions">
-                    <button class="act-btn start" data-action="start" data-id="CRE-77" >▶</button>
-                    <button class="act-btn complete" data-action="complete" data-id="CRE-77" >✅</button>
-                </span>
-            </div>
-            <div class="dod-item backlog" data-issue="CRE-76" data-venture="Trading">
-                <span class="dod-check">☐</span>
-                <span class="dod-label" style="background:#00C49F20;color:#00C49F;border-left:2px solid #00C49F">Trading</span>
-                <span class="dod-title">Market Open Check</span>
-                <span class="dod-actions">
-                    <button class="act-btn start" data-action="start" data-id="CRE-76" >▶</button>
-                    <button class="act-btn complete" data-action="complete" data-id="CRE-76" >✅</button>
-                </span>
-            </div>
-            <div class="dod-item backlog" data-issue="CRE-74" data-venture="Trading">
-                <span class="dod-check">☐</span>
-                <span class="dod-label" style="background:#00C49F20;color:#00C49F;border-left:2px solid #00C49F">Trading</span>
-                <span class="dod-title">Trading Pre-Market Scan</span>
-                <span class="dod-actions">
-                    <button class="act-btn start" data-action="start" data-id="CRE-74" >▶</button>
-                    <button class="act-btn complete" data-action="complete" data-id="CRE-74" >✅</button>
-                </span>
-            </div></div>
-        </div>
-        <div class="panel" style="margin-top:16px">
-            <h2>Automation</h2>
-            <table class="auto-status">
-                <tr><td>🌅 Morning Briefing</td><td class="live">● 6:00 AM</td></tr>
-                <tr><td>🌙 Evening Recap</td><td class="live">● 8:00 PM</td></tr>
-                <tr><td>🔄 Live Sync</td><td class="live">● Every 30s</td></tr>
-            </table>
-        </div>
-    </div>
-</div>
-
-<div class="footer">Dante Operations Layer · <a href="https://linear.app/creed-consult" style="color:#af19ff;text-decoration:none">Linear</a> · <span id="refresh-time">10:10 AM</span></div>
-
-<div class="toast" id="toast"></div>
+<!-- ═══ TOASTS ═══ -->
+<div class="toast-container" id="toasts"></div>
 
 <script>
-// ═══════════════════════════════════════════════════════════════
-// DANTE DASHBOARD — Optimistic SPA
-// ═══════════════════════════════════════════════════════════════
-
+/* ═══ STATE ═══ */
+const LS_KEY = 'dante_dashboard_v4';
 const API = '/api';
-let currentVenture = null;
 
-// ── Toast ──
-function toast(msg, type) {
-    const t = document.getElementById('toast');
-    t.textContent = msg;
-    t.className = 'toast ' + (type || 'success') + ' show';
-    setTimeout(() => t.classList.remove('show'), 2500);
+let state = {
+  tasks: [],
+  calendar: [],
+  streak: 0,
+  view: 'week',
+  selectedDay: null,
+  filterVenture: null,
+  dodState: {}
+};
+
+/* ═══ CATEGORY CONFIG ═══ */
+const CATEGORIES = {
+  health: { label: 'Health', color: 'var(--clr-health)', bg: 'oklch(72% 0.19 145 / 0.12)' },
+  spiritual: { label: 'Spiritual', color: 'var(--clr-spiritual)', bg: 'oklch(75% 0.15 80 / 0.12)' },
+  trading: { label: 'Trading', color: 'var(--clr-trading)', bg: 'oklch(65% 0.18 255 / 0.12)' },
+  creed: { label: 'Creed Consult', color: 'var(--clr-creed)', bg: 'oklch(65% 0.2 300 / 0.12)' },
+  volatile: { label: 'Volatile', color: 'var(--clr-volatile)', bg: 'oklch(68% 0.2 30 / 0.12)' },
+  networking: { label: 'Networking', color: 'var(--clr-networking)', bg: 'oklch(72% 0.16 160 / 0.12)' },
+  avatar: { label: 'AI Avatar', color: 'var(--clr-avatar)', bg: 'oklch(70% 0.18 280 / 0.12)' },
+  product: { label: 'Digital Product', color: 'var(--clr-product)', bg: 'oklch(70% 0.15 50 / 0.12)' },
+  admin: { label: 'Admin', color: 'var(--clr-admin)', bg: 'oklch(60% 0.12 300 / 0.12)' },
+  planning: { label: 'Planning', color: 'var(--clr-planning)', bg: 'oklch(60% 0.08 260 / 0.12)' },
+  tradingbot: { label: 'Trading Bot', color: 'var(--clr-tradingbot)', bg: 'oklch(65% 0.18 255 / 0.12)' },
+  meals: { label: 'Meals/Breaks', color: 'var(--clr-meals)', bg: 'oklch(55% 0.02 260 / 0.12)' },
+  free: { label: 'Free Time', color: 'var(--clr-free)', bg: 'oklch(40% 0.01 260 / 0.12)' },
+};
+
+const VENTURE_ORDER = ['health','spiritual','trading','volatile','creed','tradingbot','avatar','product','networking','planning','admin'];
+const NON_ACTIONABLE = ['meals','free'];
+const DAY_FOCUS = {
+  '2026-05-25': 'Foundation & Pipeline Setup',
+  '2026-05-26': 'Build, Test, Rotate',
+  '2026-05-27': 'Events: Design in the Age of AI + DMZ',
+  '2026-05-28': 'Events: Future Ready with AI',
+  '2026-05-29': 'AI Hackathon Day',
+  '2026-05-30': 'Recovery & Creative Build',
+  '2026-05-31': 'Review & Reset: Plan Next Week'
+};
+
+function catLabel(c) { return (CATEGORIES[c] || {}).label || c; }
+function catColor(c) { return (CATEGORIES[c] || {}).color || 'var(--text-muted)'; }
+function catBg(c) { return (CATEGORIES[c] || {}).bg || 'oklch(55% 0.02 260 / 0.12)'; }
+
+/* ═══ RENDER ═══ */
+function render() {
+  renderStats();
+  renderVentures();
+  renderDayNav();
+  renderColumns();
+  renderDod();
+  updateClock();
 }
 
-// ── Sync indicator ──
-function setSync(state) {
-    const dot = document.getElementById('sync-dot');
-    const label = document.getElementById('sync-label');
-    dot.className = 'sync-dot ' + state;
-    label.textContent = state === 'synced' ? 'synced' : 'syncing...';
+/* ═══ STATS ═══ */
+function renderStats() {
+  const actionable = state.tasks.filter(t => !NON_ACTIONABLE.includes(t.category));
+  const allTask = state.tasks;
+  const done = allTask.filter(t => t.status === 'completed').length;
+  const total = allTask.length;
+  const doneA = actionable.filter(t => t.status === 'completed').length;
+  const pct = total > 0 ? Math.round(doneA / actionable.length * 100) : 0;
+
+  const today = getTodayStr();
+  const todayTasks = allTask.filter(t => t.day === today);
+  const todayDone = todayTasks.filter(t => t.status === 'completed').length;
+  const todayTotal = todayTasks.filter(t => !NON_ACTIONABLE.includes(t.category)).length;
+  const todayPct = todayTotal > 0 ? Math.round(todayDone / todayTotal * 100) : 0;
+
+  document.getElementById('statsRow').innerHTML = `
+    <div class="stat-card">
+      <div class="stat-ring">${ring(pct, 'var(--accent)')}</div>
+      <div class="stat-info">Week<strong>${doneA}/${actionable.length}</strong></div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-ring">${ring(todayPct, 'var(--clr-health)')}</div>
+      <div class="stat-info">Today<strong>${todayDone}/${todayTotal}</strong></div>
+    </div>
+    <div class="stat-card">
+      <div class="streak"><span class="streak-icon">🔥</span>${state.streak}</div>
+      <div class="stat-info">Day Streak</div>
+    </div>
+  `;
 }
 
-// ── Action handler ──
-async function action(issueId, type) {
-    const item = document.querySelector(`.dod-item[data-issue="${issueId}"]`);
-    if (!item) return;
-    item.classList.add('updating');
-    setSync('syncing');
+function ring(pct, color) {
+  const r = 20; const circ = 2 * Math.PI * r;
+  const off = circ - (pct / 100) * circ;
+  return `<svg viewBox="0 0 48 48"><circle class="ring-track" cx="24" cy="24" r="${r}"/><circle class="ring-fill" cx="24" cy="24" r="${r}" stroke="${color}" stroke-dasharray="${circ}" stroke-dashoffset="${off}"/></svg><div class="ring-pct">${pct}%</div>`;
+}
 
-    // Optimistic UI update
-    const check = item.querySelector('.dod-check');
-    const title = item.querySelector('.dod-title');
-    const btnStart = item.querySelector('.act-btn.start');
-    const btnComplete = item.querySelector('.act-btn.complete');
+/* ═══ VENTURES ═══ */
+function renderVentures() {
+  const actionable = state.tasks.filter(t => !NON_ACTIONABLE.includes(t.category));
+  let html = '';
+  for (const v of VENTURE_ORDER) {
+    const vtasks = actionable.filter(t => t.category === v);
+    if (vtasks.length === 0) continue;
+    const vdone = vtasks.filter(t => t.status === 'completed').length;
+    const vpct = Math.round(vdone / vtasks.length * 100);
+    const active = state.filterVenture === v ? ' active' : '';
+    html += `
+      <div class="vcard${active}" data-venture="${v}" onclick="filterByVenture('${v}')">
+        <div class="vlabel">${catLabel(v)}</div>
+        <div class="vbar"><div class="vfill" style="width:${vpct}%;background:${catColor(v)}"></div></div>
+        <div class="vstat">${vdone}/${vtasks.length}</div>
+      </div>`;
+  }
+  document.getElementById('ventureStrip').innerHTML = html;
+}
 
-    if (type === 'start') {
-        check.textContent = '🔄';
-        item.className = 'dod-item started';
-        if (btnStart) btnStart.disabled = true;
-        if (btnComplete) btnComplete.disabled = false;
-    } else if (type === 'complete') {
-        check.textContent = '✅';
-        item.className = 'dod-item completed';
-        if (btnStart) btnStart.disabled = true;
-        if (btnComplete) btnComplete.disabled = true;
-    }
+/* ═══ DAY NAV ═══ */
+function renderDayNav() {
+  const days = getDays();
+  const today = getTodayStr();
+  let html = '';
+  for (const d of days) {
+    const dt = new Date(d+'T12:00:00');
+    const name = dt.toLocaleDateString('en', {weekday:'short'}).toUpperCase();
+    const dayNum = dt.getDate();
+    const dtasks = state.tasks.filter(t => t.day === d);
+    const ddone = dtasks.filter(t => t.status === 'completed').length;
+    const dtotal = dtasks.filter(t => !NON_ACTIONABLE.includes(t.category)).length;
+    const active = d === today ? ' active' : (state.selectedDay === d ? ' active' : '');
+    html += `
+      <button class="day-btn${active}" onclick="selectDay('${d}')">
+        <span class="day-label">${name}</span>
+        <span class="day-num">${dayNum}</span>
+        <span class="day-progress">${ddone}/${dtotal}</span>
+      </button>`;
+  }
+  document.getElementById('dayStrip').innerHTML = html;
+}
 
-    // Fire API
-    try {
-        const r = await fetch(`${API}/action`, {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({issue_id: issueId, action: type})
-        });
-        const d = await r.json();
-        if (!d.success) {
-            toast(d.error || 'Failed', 'error');
-            // Revert would need a refetch — just poll
-        } else {
-            toast(type === 'complete' ? '✅ Marked done' : '▶ Started', 'success');
+/* ═══ 7-DAY COLUMNS ═══ */
+function renderColumns() {
+  const today = getTodayStr();
+  const now = new Date();
+  const currentMinutes = now.getHours() * 60 + now.getMinutes();
+  let html = '';
+
+  const days = state.selectedDay ? [state.selectedDay] : getDays();
+  const filtered = state.filterVenture
+    ? state.tasks.filter(t => t.category === state.filterVenture)
+    : state.tasks;
+
+  for (const d of days) {
+    const dt = new Date(d+'T12:00:00');
+    const name = dt.toLocaleDateString('en', {weekday:'short'});
+    const dtasks = filtered.filter(t => t.day === d).sort((a,b) => a.startTime.localeCompare(b.startTime));
+    const dtoday = d === today ? ' today' : '';
+    const focus = DAY_FOCUS[d] || '';
+
+    let taskHtml = '';
+    let nowInserted = false;
+
+    for (let i = 0; i < dtasks.length; i++) {
+      const t = dtasks[i];
+      // NOW indicator logic: insert between tasks if current time falls between
+      if (dtoday && !nowInserted) {
+        const [tsh, tsm] = (t.startTime || '00:00').split(':').map(Number);
+        const taskStart = tsh * 60 + tsm;
+        const prevTask = i > 0 ? dtasks[i-1] : null;
+        let prevEnd = 0;
+        if (prevTask) {
+          const [peh, pem] = (prevTask.endTime || '00:00').split(':').map(Number);
+          prevEnd = peh * 60 + pem;
         }
-    } catch(e) {
-        toast('Server unreachable — will sync on reconnect', 'error');
-    } finally {
-        item.classList.remove('updating');
-        // Recalculate stats locally
-        recalcStats();
-        setSync('synced');
+        if (i === 0 && currentMinutes < taskStart) {
+          taskHtml += nowBar();
+          nowInserted = true;
+        } else if (prevEnd && currentMinutes >= prevEnd && currentMinutes < taskStart) {
+          taskHtml += nowBar();
+          nowInserted = true;
+        }
+      }
+
+      taskHtml += taskCard(t);
     }
+    // NOW at end if after last task
+    if (dtoday && !nowInserted && dtasks.length > 0) {
+      const last = dtasks[dtasks.length - 1];
+      const [leh, lem] = (last.endTime || '23:59').split(':').map(Number);
+      if (currentMinutes >= leh * 60 + lem) taskHtml += nowBar();
+    }
+
+    html += `
+      <div class="day-col${dtoday}">
+        <div class="col-header">
+          <span class="col-day">${name}</span>
+          <span class="col-date">${dt.getDate()}</span>
+        </div>
+        ${focus ? `<div class="col-focus">${focus}</div>` : ''}
+        <div class="col-tasks">${taskHtml || '<div style="padding:16px;color:var(--text-muted);font-size:11px;text-align:center">No tasks</div>'}</div>
+      </div>`;
+  }
+  document.getElementById('columns').innerHTML = html;
 }
 
-// ── Recalculate stats from DOM ──
-function recalcStats() {
-    const items = document.querySelectorAll('.dod-item:not(.hidden)');
-    const total = items.length;
-    const done = document.querySelectorAll('.dod-item.completed:not(.hidden)').length;
-    const pct = total > 0 ? Math.round(done / total * 100) : 0;
-    document.getElementById('pct-ring').textContent = pct + '%';
-    document.getElementById('stat-done').textContent = done;
-    document.getElementById('stat-total').textContent = total;
-    document.getElementById('dod-count').textContent = done;
+function nowBar() {
+  return `<div class="now-bar"><div class="now-dot"></div><div class="now-line"></div>NOW</div>`;
 }
 
-// ── Venture filter ──
-function filterVenture(name) {
-    const cards = document.querySelectorAll('.vcard');
-    const items = document.querySelectorAll('.dod-item');
-    const wasActive = document.querySelector('.vcard.active');
+function taskCard(t) {
+  const status = t.status || 'not_started';
+  const dur = calcDuration(t.startTime, t.endTime);
+  const btnDisabled = t._syncing ? 'disabled' : '';
+  const cat = t.category || 'admin';
 
-    if (wasActive && wasActive.querySelector('.vlabel').textContent === document.querySelector(`.vcard[onclick*="${name}"]`)?.querySelector('.vlabel')?.textContent) {
-        // Deselect
-        wasActive.classList.remove('active');
-        currentVenture = null;
-        items.forEach(i => i.classList.remove('hidden'));
+  let actions = '';
+  if (status === 'not_started' || status === 'backlog') {
+    actions = `<button class="act-btn start" ${btnDisabled} onclick="doAction('${t.id}','start')">▶</button>`;
+  } else if (status === 'started' || status === 'in_progress') {
+    actions = `<button class="act-btn complete" ${btnDisabled} onclick="doAction('${t.id}','complete')">✅</button>`;
+  }
+  if (status !== 'completed') {
+    actions += `<button class="act-btn skip" ${btnDisabled} onclick="doAction('${t.id}','skip')">⏭</button>`;
+  }
+
+  return `
+    <div class="task-card ${status}" id="task-${t.id}">
+      <div class="task-time">${t.startTime} – ${t.endTime}<span class="task-dur">· ${dur}m</span></div>
+      <div class="task-body">
+        <span class="task-cat" style="background:${catBg(cat)};color:${catColor(cat)}">${catLabel(cat)}</span>
+        <span class="task-title">${esc(t.title)}</span>
+      </div>
+      ${t.details ? `<div class="task-details">${esc(t.details)}</div>` : ''}
+      ${NON_ACTIONABLE.includes(cat) ? '' : `<div class="task-actions">${actions}</div>`}
+    </div>`;
+}
+
+/* ═══ DOD ═══ */
+function renderDod() {
+  // Group tasks by category with their completion status
+  const grouped = {};
+  for (const t of state.tasks) {
+    if (NON_ACTIONABLE.includes(t.category)) continue;
+    const cat = t.category;
+    if (!grouped[cat]) grouped[cat] = [];
+    grouped[cat].push(t);
+  }
+
+  let html = '';
+  const totalDod = Object.values(grouped).flat().length;
+  const checkedDod = Object.values(grouped).flat().filter(t => t.status === 'completed').length;
+
+  html += `<div style="font-size:12px;color:var(--text-dim);margin-bottom:12px">${checkedDod}/${totalDod} completed</div>`;
+
+  for (const [cat, tasks] of Object.entries(grouped)) {
+    const done = tasks.filter(t => t.status === 'completed').length;
+    html += `<div class="dod-group">
+      <div class="dod-group-label">${catLabel(cat)} · ${done}/${tasks.length}</div>`;
+    for (const t of tasks) {
+      const checked = t.status === 'completed';
+      html += `<div class="dod-item">
+        <div class="dod-checkbox${checked ? ' checked' : ''}">${checked ? '✓' : ''}</div>
+        <span style="${checked ? 'text-decoration:line-through;opacity:0.5' : ''}">${esc(t.title)}</span>
+      </div>`;
+    }
+    html += `</div>`;
+  }
+
+  document.getElementById('dodBody').innerHTML = html;
+}
+
+/* ═══ ACTIONS ═══ */
+function doAction(issueId, action) {
+  const task = state.tasks.find(t => t.id === issueId);
+  if (!task) return;
+
+  // Optimistic update
+  const newStatus = action === 'start' ? 'started' : action === 'complete' ? 'completed' : action === 'skip' ? 'skipped' : task.status;
+  task.status = newStatus;
+  task._syncing = true;
+  saveLocal();
+  render();
+  toast(`${action === 'start' ? '▶ Started' : action === 'complete' ? '✅ Completed' : '⏭ Skipped'}: ${task.title.substring(0, 40)}`);
+
+  // Background sync
+  fetch(`${API}/action`, {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({issue_id: issueId, action: action})
+  }).then(r => r.json()).then(d => {
+    if (d.success) {
+      task._syncing = false;
+      saveLocal();
     } else {
-        cards.forEach(c => c.classList.remove('active'));
-        const target = [...cards].find(c => c.querySelector('.vlabel').textContent === ({'Volatile':'VOL','Trading':'TRA','Trading Bot':'BOT','AI Avatar':'AI','Creed Consult':'CRE','Digital Product':'DIG','Networking':'NET','Feature':'LIFE'}[name] || name));
-        if (target) target.classList.add('active');
-        currentVenture = name;
-        items.forEach(i => {
-            if (i.dataset.venture !== name) i.classList.add('hidden');
-            else i.classList.remove('hidden');
-        });
+      task.status = task._prevStatus || 'not_started';
+      delete task._syncing;
+      saveLocal();
+      render();
+      toast('⚠ Sync failed, reverted');
     }
-    recalcStats();
+  }).catch(() => {
+    task.status = task._prevStatus || 'not_started';
+    delete task._syncing;
+    saveLocal();
+    render();
+    toast('⚠ Server unreachable');
+  });
+
+  task._prevStatus = task.status;
 }
 
-// ── Bootstrap: wire up buttons ──
-document.querySelectorAll('.act-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-        const id = btn.dataset.id;
-        const act = btn.dataset.action;
-        if (id && act) action(id, act);
-    });
-});
-
-// ── Day buttons ──
-document.querySelectorAll('.day-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-        document.querySelectorAll('.day-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        toast('Day switching re-fetches data — coming soon', 'success');
-    });
-});
-
-// ── Clock ──
-function tick() {
-    const now = new Date();
-    document.getElementById('clock').textContent = now.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
-    document.getElementById('refresh-time').textContent = now.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
+/* ═══ VIEW ═══ */
+function setView(view) {
+  state.view = view;
+  document.querySelectorAll('.view-btn').forEach(b => b.classList.toggle('active', b.dataset.view === view));
+  if (view === 'week') state.selectedDay = null;
+  render();
 }
-setInterval(tick, 30000);
-tick();
 
-// ── Poll for updates ──
-let pollTimer = null;
-async function poll() {
-    try {
-        setSync('syncing');
-        const r = await fetch(`${API}/state`);
-        const state = await r.json();
-        if (state.streak !== undefined) {
-            document.getElementById('streak-val').textContent = state.streak;
-        }
-        // Full DOM reconciliation on data change — lightweight for now,
-        // can be expanded to diff individual items
-        setSync('synced');
-    } catch(e) {
-        setSync('synced'); // keep green, just missed a poll
-    }
+function selectDay(day) {
+  state.selectedDay = state.selectedDay === day ? null : day;
+  document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
+  render();
 }
-pollTimer = setInterval(poll, 30000);
 
-// ── Keyboard shortcuts ──
-document.addEventListener('keydown', e => {
-    if (e.key === 'r' && e.ctrlKey) {
-        e.preventDefault();
-        location.reload();
+function filterByVenture(v) {
+  state.filterVenture = state.filterVenture === v ? null : v;
+  render();
+}
+
+/* ═══ DOD TOGGLE ═══ */
+function toggleDod() {
+  const panel = document.getElementById('dodPanel');
+  const overlay = document.getElementById('dodOverlay');
+  const isOpen = panel.classList.contains('open');
+  panel.classList.toggle('open', !isOpen);
+  overlay.classList.toggle('show', !isOpen);
+}
+
+/* ═══ HELPERS ═══ */
+function getTodayStr() { return new Date().toISOString().slice(0,10); }
+function getDays() {
+  const today = new Date();
+  const monday = new Date(today);
+  monday.setDate(today.getDate() - today.getDay() + 1);
+  const days = [];
+  for (let i = 0; i < 7; i++) {
+    const d = new Date(monday);
+    d.setDate(monday.getDate() + i);
+    days.push(d.toISOString().slice(0,10));
+  }
+  return days;
+}
+function calcDuration(start, end) {
+  if (!start || !end) return 0;
+  const [sh, sm] = start.split(':').map(Number);
+  const [eh, em] = end.split(':').map(Number);
+  return (eh * 60 + em) - (sh * 60 + sm);
+}
+function esc(s) { const d=document.createElement('div');d.textContent=s||'';return d.innerHTML; }
+function toast(msg) {
+  const c = document.getElementById('toasts');
+  const el = document.createElement('div');
+  el.className = 'toast';
+  el.textContent = msg;
+  c.appendChild(el);
+  setTimeout(() => el.remove(), 1600);
+}
+
+/* ═══ CLOCK ═══ */
+function updateClock() {
+  const now = new Date();
+  document.getElementById('clock').textContent = now.toLocaleTimeString('en-US', {hour:'2-digit',minute:'2-digit',hour12:true});
+  const days = getDays();
+  const monday = new Date(days[0]+'T12:00:00');
+  const sunday = new Date(days[6]+'T12:00:00');
+  document.getElementById('weekLabel').textContent = `Week of ${monday.toLocaleDateString('en',{month:'short',day:'numeric'})} – ${sunday.toLocaleDateString('en',{month:'short',day:'numeric',year:'numeric'})}`;
+}
+
+/* ═══ LOCAL STORAGE ═══ */
+function saveLocal() {
+  try { localStorage.setItem(LS_KEY, JSON.stringify({tasks:state.tasks,dodState:state.dodState,streak:state.streak})); } catch(e) {}
+}
+function loadLocal() {
+  try {
+    const d = JSON.parse(localStorage.getItem(LS_KEY));
+    if (d && d.tasks) {
+      // Merge local status into tasks from server
+      const localMap = {};
+      for (const t of d.tasks) localMap[t.id] = t.status;
+      for (const t of state.tasks) {
+        if (localMap[t.id] && localMap[t.id] !== 'synced') t.status = localMap[t.id];
+      }
     }
-});
+    if (d && d.streak) state.streak = d.streak;
+    if (d && d.dodState) state.dodState = d.dodState;
+  } catch(e) {}
+}
+
+/* ═══ DATA LOADING ═══ */
+async function loadData() {
+  try {
+    const r = await fetch(`${API}/state`);
+    const d = await r.json();
+    state.tasks = d.issues || [];
+    state.calendar = d.calendar || [];
+    state.streak = d.streak || 0;
+    loadLocal();
+    render();
+  } catch(e) {
+    console.error('Load failed:', e);
+    loadLocal();
+    render();
+  }
+}
+
+/* ═══ INIT ═══ */
+loadData();
+setInterval(loadData, 30000);  // Poll every 30s
+setInterval(updateClock, 30000);
+setInterval(render, 60000);    // Full re-render every 60s for NOW indicator
 </script>
 </body>
 </html>
