@@ -94,7 +94,7 @@ body{background:#0b0b12;color:#d0d0d8;font-family:-apple-system,BlinkMacSystemFo
         <div class="week-label">Week of May 25 – May 31, 2026</div>
     </div>
     <div class="topbar-right">
-        <span>Tuesday · <span id="clock">10:00 AM</span></span>
+        <span>Tuesday · <span id="clock">10:10 AM</span></span>
         <span class="streak"><span class="streak-icon">🔥</span> <span id="streak-val">1</span></span>
         <span><span class="sync-dot synced" id="sync-dot"></span><span id="sync-label" style="font-size:11px;color:#555">synced</span></span>
     </div>
@@ -146,7 +146,7 @@ body{background:#0b0b12;color:#d0d0d8;font-family:-apple-system,BlinkMacSystemFo
             <div class="vcard" onclick="filterVenture('Trading')">
                 <div class="vlabel">TRA</div>
                 <div class="vbar"><div class="vfill" style="width:0%;background:#00C49F"></div></div>
-                <div class="vstat">0/1</div>
+                <div class="vstat">0/3</div>
             </div>
             <div class="vcard" onclick="filterVenture('Trading Bot')">
                 <div class="vlabel">BOT</div>
@@ -156,7 +156,7 @@ body{background:#0b0b12;color:#d0d0d8;font-family:-apple-system,BlinkMacSystemFo
             <div class="vcard" onclick="filterVenture('AI Avatar')">
                 <div class="vlabel">AI</div>
                 <div class="vbar"><div class="vfill" style="width:0%;background:#FFBB28"></div></div>
-                <div class="vstat">0/1</div>
+                <div class="vstat">0/2</div>
             </div>
             <div class="vcard" onclick="filterVenture('Creed Consult')">
                 <div class="vlabel">CRE</div>
@@ -166,23 +166,18 @@ body{background:#0b0b12;color:#d0d0d8;font-family:-apple-system,BlinkMacSystemFo
             <div class="vcard" onclick="filterVenture('Digital Product')">
                 <div class="vlabel">DIG</div>
                 <div class="vbar"><div class="vfill" style="width:0%;background:#FF4081"></div></div>
-                <div class="vstat">0/1</div>
+                <div class="vstat">0/2</div>
             </div>
             <div class="vcard" onclick="filterVenture('Networking')">
                 <div class="vlabel">NET</div>
                 <div class="vbar"><div class="vfill" style="width:0%;background:#00BCD4"></div></div>
-                <div class="vstat">0/1</div>
-            </div>
-            <div class="vcard" onclick="filterVenture('Feature')">
-                <div class="vlabel">LIFE</div>
-                <div class="vbar"><div class="vfill" style="width:100%;background:#BB87FC"></div></div>
-                <div class="vstat">5/5</div>
+                <div class="vstat">0/6</div>
             </div></div>
 
 <div class="stats-row">
     <div class="stat-card">
-        <div class="stat-ring" id="pct-ring">42%</div>
-        <div class="stat-info">Weekly<strong><span id="stat-done">5</span>/<span id="stat-total">12</span></strong></div>
+        <div class="stat-ring" id="pct-ring">0%</div>
+        <div class="stat-info">Weekly<strong><span id="stat-done">0</span>/<span id="stat-total">16</span></strong></div>
     </div>
     <div class="stat-card">
         <div class="stat-ring">0</div>
@@ -203,114 +198,150 @@ body{background:#0b0b12;color:#d0d0d8;font-family:-apple-system,BlinkMacSystemFo
     </div>
     <div>
         <div class="panel">
-            <h2>Definitions of Done <span style="color:#555;font-weight:400">(<span id="dod-count">5</span>/12)</span></h2>
+            <h2>Definitions of Done <span style="color:#555;font-weight:400">(<span id="dod-count">0</span>/16)</span></h2>
             <div id="dod-list">
-            <div class="dod-item completed" data-issue="CRE-16" data-venture="Feature">
-                <span class="dod-check">✅</span>
-                <span class="dod-label" style="background:#BB87FC20;color:#BB87FC;border-left:2px solid #BB87FC">Feature</span>
-                <span class="dod-title">Daily prayer/meditation completed every morning</span>
-                <span class="dod-actions">
-                    <button class="act-btn start" data-action="start" data-id="CRE-16" disabled>▶</button>
-                    <button class="act-btn complete" data-action="complete" data-id="CRE-16" disabled>✅</button>
-                </span>
-            </div>
-            <div class="dod-item completed" data-issue="CRE-15" data-venture="Feature">
-                <span class="dod-check">✅</span>
-                <span class="dod-label" style="background:#BB87FC20;color:#BB87FC;border-left:2px solid #BB87FC">Feature</span>
-                <span class="dod-title">Fasting 6:00 AM–3:00 PM maintained all 7 days</span>
-                <span class="dod-actions">
-                    <button class="act-btn start" data-action="start" data-id="CRE-15" disabled>▶</button>
-                    <button class="act-btn complete" data-action="complete" data-id="CRE-15" disabled>✅</button>
-                </span>
-            </div>
-            <div class="dod-item completed" data-issue="CRE-14" data-venture="Feature">
-                <span class="dod-check">✅</span>
-                <span class="dod-label" style="background:#BB87FC20;color:#BB87FC;border-left:2px solid #BB87FC">Feature</span>
-                <span class="dod-title">6:00 AM wake + 11:00 PM bed all 7 days</span>
-                <span class="dod-actions">
-                    <button class="act-btn start" data-action="start" data-id="CRE-14" disabled>▶</button>
-                    <button class="act-btn complete" data-action="complete" data-id="CRE-14" disabled>✅</button>
-                </span>
-            </div>
-            <div class="dod-item completed" data-issue="CRE-13" data-venture="Feature">
-                <span class="dod-check">✅</span>
-                <span class="dod-label" style="background:#BB87FC20;color:#BB87FC;border-left:2px solid #BB87FC">Feature</span>
-                <span class="dod-title">Gym attended at least 4 times</span>
-                <span class="dod-actions">
-                    <button class="act-btn start" data-action="start" data-id="CRE-13" disabled>▶</button>
-                    <button class="act-btn complete" data-action="complete" data-id="CRE-13" disabled>✅</button>
-                </span>
-            </div>
-            <div class="dod-item completed" data-issue="CRE-12" data-venture="Feature">
-                <span class="dod-check">✅</span>
-                <span class="dod-label" style="background:#BB87FC20;color:#BB87FC;border-left:2px solid #BB87FC">Feature</span>
-                <span class="dod-title">7km cumulative running (1km/day)</span>
-                <span class="dod-actions">
-                    <button class="act-btn start" data-action="start" data-id="CRE-12" disabled>▶</button>
-                    <button class="act-btn complete" data-action="complete" data-id="CRE-12" disabled>✅</button>
-                </span>
-            </div>
-            <div class="dod-item started" data-issue="CRE-11" data-venture="Digital Product">
-                <span class="dod-check">🔄</span>
-                <span class="dod-label" style="background:#FF408120;color:#FF4081;border-left:2px solid #FF4081">Digital Product</span>
-                <span class="dod-title">Course/EA outline drafted + one asset/lesson created</span>
-                <span class="dod-actions">
-                    <button class="act-btn start" data-action="start" data-id="CRE-11" disabled>▶</button>
-                    <button class="act-btn complete" data-action="complete" data-id="CRE-11" >✅</button>
-                </span>
-            </div>
-            <div class="dod-item backlog" data-issue="CRE-10" data-venture="Networking">
+            <div class="dod-item backlog" data-issue="CRE-100" data-venture="Digital Product">
                 <span class="dod-check">☐</span>
-                <span class="dod-label" style="background:#00BCD420;color:#00BCD4;border-left:2px solid #00BCD4">Networking</span>
-                <span class="dod-title">3 events attended (Wed/Thu/Fri) + follow-up notes captured</span>
+                <span class="dod-label" style="background:#FF408120;color:#FF4081;border-left:2px solid #FF4081">Digital Product</span>
+                <span class="dod-title">Digital Product Planning</span>
                 <span class="dod-actions">
-                    <button class="act-btn start" data-action="start" data-id="CRE-10" >▶</button>
-                    <button class="act-btn complete" data-action="complete" data-id="CRE-10" >✅</button>
+                    <button class="act-btn start" data-action="start" data-id="CRE-100" >▶</button>
+                    <button class="act-btn complete" data-action="complete" data-id="CRE-100" >✅</button>
                 </span>
             </div>
-            <div class="dod-item backlog" data-issue="CRE-9" data-venture="Creed Consult">
+            <div class="dod-item backlog" data-issue="CRE-99" data-venture="Creed Consult">
                 <span class="dod-check">☐</span>
                 <span class="dod-label" style="background:#AF19FF20;color:#AF19FF;border-left:2px solid #AF19FF">Creed Consult</span>
-                <span class="dod-title">Urgent client/admin tasks clarified + next-week tasks prepped</span>
+                <span class="dod-title">Creed Consult & Networking Review</span>
                 <span class="dod-actions">
-                    <button class="act-btn start" data-action="start" data-id="CRE-9" >▶</button>
-                    <button class="act-btn complete" data-action="complete" data-id="CRE-9" >✅</button>
+                    <button class="act-btn start" data-action="start" data-id="CRE-99" >▶</button>
+                    <button class="act-btn complete" data-action="complete" data-id="CRE-99" >✅</button>
                 </span>
             </div>
-            <div class="dod-item backlog" data-issue="CRE-8" data-venture="AI Avatar">
-                <span class="dod-check">☐</span>
-                <span class="dod-label" style="background:#FFBB2820;color:#FFBB28;border-left:2px solid #FFBB28">AI Avatar</span>
-                <span class="dod-title">One avatar workflow test completed</span>
-                <span class="dod-actions">
-                    <button class="act-btn start" data-action="start" data-id="CRE-8" >▶</button>
-                    <button class="act-btn complete" data-action="complete" data-id="CRE-8" >✅</button>
-                </span>
-            </div>
-            <div class="dod-item backlog" data-issue="CRE-7" data-venture="Trading Bot">
-                <span class="dod-check">☐</span>
-                <span class="dod-label" style="background:#0088FE20;color:#0088FE;border-left:2px solid #0088FE">Trading Bot</span>
-                <span class="dod-title">Multi-account bridge issue documented + fix attempted</span>
-                <span class="dod-actions">
-                    <button class="act-btn start" data-action="start" data-id="CRE-7" >▶</button>
-                    <button class="act-btn complete" data-action="complete" data-id="CRE-7" >✅</button>
-                </span>
-            </div>
-            <div class="dod-item backlog" data-issue="CRE-6" data-venture="Trading">
-                <span class="dod-check">☐</span>
-                <span class="dod-label" style="background:#00C49F20;color:#00C49F;border-left:2px solid #00C49F">Trading</span>
-                <span class="dod-title">5 daily market reviews completed + 3 journaled sessions</span>
-                <span class="dod-actions">
-                    <button class="act-btn start" data-action="start" data-id="CRE-6" >▶</button>
-                    <button class="act-btn complete" data-action="complete" data-id="CRE-6" >✅</button>
-                </span>
-            </div>
-            <div class="dod-item backlog" data-issue="CRE-5" data-venture="Volatile">
+            <div class="dod-item backlog" data-issue="CRE-96" data-venture="Volatile">
                 <span class="dod-check">☐</span>
                 <span class="dod-label" style="background:#FF6B3520;color:#FF6B35;border-left:2px solid #FF6B35">Volatile</span>
-                <span class="dod-title">Signal pipeline architecture drafted + one infrastructure component started</span>
+                <span class="dod-title">Deep Work: Volatile Planning</span>
                 <span class="dod-actions">
-                    <button class="act-btn start" data-action="start" data-id="CRE-5" >▶</button>
-                    <button class="act-btn complete" data-action="complete" data-id="CRE-5" >✅</button>
+                    <button class="act-btn start" data-action="start" data-id="CRE-96" >▶</button>
+                    <button class="act-btn complete" data-action="complete" data-id="CRE-96" >✅</button>
+                </span>
+            </div>
+            <div class="dod-item backlog" data-issue="CRE-92" data-venture="AI Avatar">
+                <span class="dod-check">☐</span>
+                <span class="dod-label" style="background:#FFBB2820;color:#FFBB28;border-left:2px solid #FFBB28">AI Avatar</span>
+                <span class="dod-title">Light Creative Block</span>
+                <span class="dod-actions">
+                    <button class="act-btn start" data-action="start" data-id="CRE-92" >▶</button>
+                    <button class="act-btn complete" data-action="complete" data-id="CRE-92" >✅</button>
+                </span>
+            </div>
+            <div class="dod-item backlog" data-issue="CRE-91" data-venture="Networking">
+                <span class="dod-check">☐</span>
+                <span class="dod-label" style="background:#00BCD420;color:#00BCD4;border-left:2px solid #00BCD4">Networking</span>
+                <span class="dod-title">Networking Follow-Ups</span>
+                <span class="dod-actions">
+                    <button class="act-btn start" data-action="start" data-id="CRE-91" >▶</button>
+                    <button class="act-btn complete" data-action="complete" data-id="CRE-91" >✅</button>
+                </span>
+            </div>
+            <div class="dod-item backlog" data-issue="CRE-90" data-venture="Digital Product">
+                <span class="dod-check">☐</span>
+                <span class="dod-label" style="background:#FF408120;color:#FF4081;border-left:2px solid #FF4081">Digital Product</span>
+                <span class="dod-title">Digital Product Development</span>
+                <span class="dod-actions">
+                    <button class="act-btn start" data-action="start" data-id="CRE-90" >▶</button>
+                    <button class="act-btn complete" data-action="complete" data-id="CRE-90" >✅</button>
+                </span>
+            </div>
+            <div class="dod-item backlog" data-issue="CRE-89" data-venture="AI Avatar">
+                <span class="dod-check">☐</span>
+                <span class="dod-label" style="background:#FFBB2820;color:#FFBB28;border-left:2px solid #FFBB28">AI Avatar</span>
+                <span class="dod-title">Deep Work: AI Avatar Content</span>
+                <span class="dod-actions">
+                    <button class="act-btn start" data-action="start" data-id="CRE-89" >▶</button>
+                    <button class="act-btn complete" data-action="complete" data-id="CRE-89" >✅</button>
+                </span>
+            </div>
+            <div class="dod-item backlog" data-issue="CRE-86" data-venture="Trading Bot">
+                <span class="dod-check">☐</span>
+                <span class="dod-label" style="background:#0088FE20;color:#0088FE;border-left:2px solid #0088FE">Trading Bot</span>
+                <span class="dod-title">Deep Work: Trading Journal & Bot Notes</span>
+                <span class="dod-actions">
+                    <button class="act-btn start" data-action="start" data-id="CRE-86" >▶</button>
+                    <button class="act-btn complete" data-action="complete" data-id="CRE-86" >✅</button>
+                </span>
+            </div>
+            <div class="dod-item backlog" data-issue="CRE-85" data-venture="Trading">
+                <span class="dod-check">☐</span>
+                <span class="dod-label" style="background:#00C49F20;color:#00C49F;border-left:2px solid #00C49F">Trading</span>
+                <span class="dod-title">Weekly Trading Review</span>
+                <span class="dod-actions">
+                    <button class="act-btn start" data-action="start" data-id="CRE-85" >▶</button>
+                    <button class="act-btn complete" data-action="complete" data-id="CRE-85" >✅</button>
+                </span>
+            </div>
+            <div class="dod-item backlog" data-issue="CRE-81" data-venture="Networking">
+                <span class="dod-check">☐</span>
+                <span class="dod-label" style="background:#00BCD420;color:#00BCD4;border-left:2px solid #00BCD4">Networking</span>
+                <span class="dod-title">Capture Notes</span>
+                <span class="dod-actions">
+                    <button class="act-btn start" data-action="start" data-id="CRE-81" >▶</button>
+                    <button class="act-btn complete" data-action="complete" data-id="CRE-81" >✅</button>
+                </span>
+            </div>
+            <div class="dod-item backlog" data-issue="CRE-80" data-venture="Networking">
+                <span class="dod-check">☐</span>
+                <span class="dod-label" style="background:#00BCD420;color:#00BCD4;border-left:2px solid #00BCD4">Networking</span>
+                <span class="dod-title">Hackathon Wrap / Networking</span>
+                <span class="dod-actions">
+                    <button class="act-btn start" data-action="start" data-id="CRE-80" >▶</button>
+                    <button class="act-btn complete" data-action="complete" data-id="CRE-80" >✅</button>
+                </span>
+            </div>
+            <div class="dod-item backlog" data-issue="CRE-79" data-venture="Networking">
+                <span class="dod-check">☐</span>
+                <span class="dod-label" style="background:#00BCD420;color:#00BCD4;border-left:2px solid #00BCD4">Networking</span>
+                <span class="dod-title">AI Hackathon: Execution</span>
+                <span class="dod-actions">
+                    <button class="act-btn start" data-action="start" data-id="CRE-79" >▶</button>
+                    <button class="act-btn complete" data-action="complete" data-id="CRE-79" >✅</button>
+                </span>
+            </div>
+            <div class="dod-item backlog" data-issue="CRE-78" data-venture="Networking">
+                <span class="dod-check">☐</span>
+                <span class="dod-label" style="background:#00BCD420;color:#00BCD4;border-left:2px solid #00BCD4">Networking</span>
+                <span class="dod-title">AI Hackathon: Collaboration</span>
+                <span class="dod-actions">
+                    <button class="act-btn start" data-action="start" data-id="CRE-78" >▶</button>
+                    <button class="act-btn complete" data-action="complete" data-id="CRE-78" >✅</button>
+                </span>
+            </div>
+            <div class="dod-item backlog" data-issue="CRE-77" data-venture="Networking">
+                <span class="dod-check">☐</span>
+                <span class="dod-label" style="background:#00BCD420;color:#00BCD4;border-left:2px solid #00BCD4">Networking</span>
+                <span class="dod-title">AI Hackathon: Build Session</span>
+                <span class="dod-actions">
+                    <button class="act-btn start" data-action="start" data-id="CRE-77" >▶</button>
+                    <button class="act-btn complete" data-action="complete" data-id="CRE-77" >✅</button>
+                </span>
+            </div>
+            <div class="dod-item backlog" data-issue="CRE-76" data-venture="Trading">
+                <span class="dod-check">☐</span>
+                <span class="dod-label" style="background:#00C49F20;color:#00C49F;border-left:2px solid #00C49F">Trading</span>
+                <span class="dod-title">Market Open Check</span>
+                <span class="dod-actions">
+                    <button class="act-btn start" data-action="start" data-id="CRE-76" >▶</button>
+                    <button class="act-btn complete" data-action="complete" data-id="CRE-76" >✅</button>
+                </span>
+            </div>
+            <div class="dod-item backlog" data-issue="CRE-74" data-venture="Trading">
+                <span class="dod-check">☐</span>
+                <span class="dod-label" style="background:#00C49F20;color:#00C49F;border-left:2px solid #00C49F">Trading</span>
+                <span class="dod-title">Trading Pre-Market Scan</span>
+                <span class="dod-actions">
+                    <button class="act-btn start" data-action="start" data-id="CRE-74" >▶</button>
+                    <button class="act-btn complete" data-action="complete" data-id="CRE-74" >✅</button>
                 </span>
             </div></div>
         </div>
@@ -325,7 +356,7 @@ body{background:#0b0b12;color:#d0d0d8;font-family:-apple-system,BlinkMacSystemFo
     </div>
 </div>
 
-<div class="footer">Dante Operations Layer · <a href="https://linear.app/creed-consult" style="color:#af19ff;text-decoration:none">Linear</a> · <span id="refresh-time">10:00 AM</span></div>
+<div class="footer">Dante Operations Layer · <a href="https://linear.app/creed-consult" style="color:#af19ff;text-decoration:none">Linear</a> · <span id="refresh-time">10:10 AM</span></div>
 
 <div class="toast" id="toast"></div>
 
